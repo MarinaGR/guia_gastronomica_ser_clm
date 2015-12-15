@@ -93,13 +93,17 @@ a {
 	border-bottom: 5px solid #005577;
 }
 
+.ov_title_01  img {
+	max-width: 100%;
+}
+
 .ov_lista {
 	counter-reset: li;
 	list-style: none;
-	padding: 0;
+	padding: 0 0 0 20px;
 }
 .ov_lista li {
-	margin: 10px 5px;
+	margin: 15px 5px;
 }
 ol.ov_lista > li:before {
 	counter-increment: li;
@@ -117,17 +121,17 @@ ol.ov_lista > li:before {
 	display: inline-block;
 }
 ul.ov_lista > li:before {
-	content: "·";
+	content: "*";
 	color: #FFF;
 	background-color: #678594;
 	text-align: center;
 	width: 10px;
 	height: 10px;
-	line-height: 5px;
+	line-height: 15px;
 	border-radius: 20px;
-	font-size: 1.4em;
+	font-size: 1.2em;
 	padding: 5px;
-	margin-right: 5px;
+	margin-right: 10px;
 	margin-bottom: 10px;
 	display: inline-block;
 }

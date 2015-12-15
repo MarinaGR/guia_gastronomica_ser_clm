@@ -4,7 +4,7 @@ var now = new Date().getTime();
 var id_notificacion=0;
 
 var extern_siteurl="http://ovnyline.es/SER_CLM_GASTRONOMIA/index.html?app=mobile&app_ios=mobile"; 
-var extern_siteurl_op="http://ovnyline.es/SER_CLM_GASTRONOMIA/functions/php_ajax_operations.php";
+var extern_siteurl_op="http://ovnyline.es/SER_CLM_GASTRONOMIA/server/functions/api.php";
 
 //Get the screen and viewport size
 var viewport_width=$(window).outerWidth();
@@ -97,7 +97,7 @@ function check_internet(){
 	{
 		if(typeof $("#contenido").attr("src") == "undefined")
 		{			
-			/*NOTIFICACIONES*/
+			/*NOTIFICACIONES
 			
 			var values="date="+getLocalStorage("fecha");
 			ajax_operation_cross(values,"ov_get_notifications");
@@ -106,11 +106,13 @@ function check_internet(){
 				$("#contenido").attr("src",extern_siteurl);	
 			},250);
 			
-			/*CADA 6 HORAS*/	
+			//CADA 6 HORAS
 			setInterval(function(){
 				var values2="date="+getLocalStorage("fecha");
 				ajax_operation_cross(values2,"ov_get_notifications");
 			},6*60*60*1000);  //cada minuto: 1min*60seg*1000; cada 24 horas: 24*60*60*1000
+			
+			*/
 		}		
 	}
 
@@ -144,7 +146,7 @@ function show_notification(msg)
 		window.plugin.notification.local.add({
 			id:      id_notificacion,
 			date:    _10_seconds_from_now, 
-			title:   'Novedades CD Colegios Diocesanos',
+			title:   'NOVEDADES GUIA GASTRONÓMICA SER CLM',
 			message: mensaje,
 			autoCancel: true
 		});
@@ -203,7 +205,7 @@ function ajax_operation_cross(values,operation)
 	  error:function(jqXHR, textStatus, errorThrown){
             console.log(jqXHR.responseText);
             console.log(errorThrown);
-            alert(jqXHR.responseText+" - "+errorThrown);
+            //alert(jqXHR.responseText+" - "+errorThrown);
             retorno=false;
          },
 	  dataType: "jsonp",
