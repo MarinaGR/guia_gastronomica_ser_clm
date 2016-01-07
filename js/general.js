@@ -97,14 +97,14 @@ function check_internet(){
 	{
 		if(typeof $("#contenido").attr("src") == "undefined")
 		{			
+			setTimeout(function(){
+				$("#contenido").attr("src",extern_siteurl);	
+			},250);
+			
 			/*NOTIFICACIONES
 			
 			var values="date="+getLocalStorage("fecha");
 			ajax_operation_cross(values,"ov_get_notifications");
-	
-			setTimeout(function(){
-				$("#contenido").attr("src",extern_siteurl);	
-			},250);
 			
 			//CADA 6 HORAS
 			setInterval(function(){
