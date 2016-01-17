@@ -1,8 +1,7 @@
 @import url("./css/font-awesome.min.css");
 
-@font-face{font-family: "1";src: url("./fonts/Oxygen-Light.ttf") format("truetype");}
-@font-face{font-family: "2";src: url("./fonts/OSP-DIN.ttf") format("truetype");}
-@font-face{font-family: "3";src: url("./fonts/ArchivoNarrow-Regular.otf") format("opentype");}
+@font-face{font-family: "1";src: url("./fonts/OpenSans-Regular.ttf") format("truetype");}
+@font-face{font-family: "2";src: url("./fonts/DINBdA.ttf") format("truetype");}
 
 body 
 {
@@ -13,7 +12,10 @@ body
 	font-size: 15px;
 	font-family: "1", Arial, sans-serif;
 }
-
+h1, h2, h3 , h4, h5, h6 {
+	font-family: "2";
+	font-weight: 100;
+}
 h1, h2, h3 {
 	line-height: 1.3em;
 }
@@ -22,16 +24,32 @@ a {
 	color: #FFF;
 }
 
-.ov_body {
-	background-color: #EEEEEE;
-}
-
 .ov_message {
-	background-color:#678594; 
+	background-color:#01448A; 
 	color: #EEE; 
 	padding: 10px 0; 
 	text-align:center;
 	font-size: 0.7em;
+}
+
+.contenedor_logo_sup {
+    width: 100%;
+    height: 80px;
+    text-align: center;
+    line-height: 125px;
+    background-color: #F9F9F9;
+    border-bottom: 1px solid #EEEEEE;
+}
+.contenedor_logo_sup img {
+    max-width: 99%;
+    max-height: 100%;
+    padding: 3px 0;
+    box-sizing: border-box;
+}
+.provincias img {
+    width: 320px;
+	max-width: 98%;
+    opacity: 0.95;
 }
 
 .ov_header {
@@ -80,9 +98,10 @@ a {
 	min-width: 240px;
 	max-width: 940px;
 	padding: 2%;
-	margin: 20px auto;
+	margin: 5px auto;
 	font-size: 0.95em;
 	line-height: 1.5em;
+	text-align:center;
 }
 
 .ov_title_01 {
@@ -90,7 +109,7 @@ a {
 	padding: 5px;
 	text-align: center;
 	margin-bottom: 15px;
-	border-bottom: 5px solid #678594;
+	border-bottom: 5px solid #01448A;
 }
 
 .ov_title_01  img {
@@ -120,10 +139,10 @@ ol.ov_lista > li:before {
 	margin-right: 5px;
 	display: inline-block;
 }
-ul.ov_lista > li:before {
+/*ul.ov_lista > li:before {
 	content: "*";
 	color: #FFF;
-	background-color: #678594;
+	background-color: #01448A;
 	text-align: center;
 	width: 10px;
 	height: 10px;
@@ -134,6 +153,14 @@ ul.ov_lista > li:before {
 	margin-right: 10px;
 	margin-bottom: 10px;
 	display: inline-block;
+}*/
+
+i {
+	margin: 5px;
+	font-size: 0.9em;
+}
+i.fa {
+    font-size: 1.75em;
 }
 
 .clear {
