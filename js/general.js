@@ -3,7 +3,8 @@
 var now = new Date().getTime();
 var id_notificacion=0;
 
-var extern_siteurl="http://ovnyline.es/SER_CLM_GASTRONOMIA/index.html?app=mobile&app_ios=mobile"; 
+var extern_siteurl_notif="http://ovnyline.es/SER_CLM_GASTRONOMIA/";
+var extern_siteurl="http://ovnyline.es/SER_CLM_GASTRONOMIA/index.html?app=mobile&app_ios=mobile&flag="+now; 
 var extern_siteurl_op="http://ovnyline.es/SER_CLM_GASTRONOMIA/server/functions/api.php";
 
 //Get the screen and viewport size
@@ -11,6 +12,11 @@ var viewport_width=$(window).outerWidth();
 var viewport_height=$(window).outerHeight();
 var screen_width=screen.width;
 var screen_height=screen.height; 
+var start_session;
+
+var senderID="87250675213";
+var id_notificacion=0;
+var pushNotification;
 
 $(document).ready(function() {
 	$("#contenido").height(parseInt($(window).height())-4+"px");
@@ -26,21 +32,308 @@ function onBodyLoad()
 		var nueva_fecha=now; //new Date(2016,0,1).getTime(); 
 		setLocalStorage("fecha", nueva_fecha);
 	}
-	
-	check_internet();			
-	
 }
+
 function onDeviceReady()
 {
 	document.addEventListener("offline", onOffline, false);
 	document.addEventListener("online", onOnline, false);
-
-	//cordova.plugins.backgroundMode.enable(); 	
 	
 	document.addEventListener("backbutton", onBackKeyDown, false);
 	document.addEventListener("menubutton", onMenuKeyDown, false);
 	
-}    
+	//RECOGER device.uuid para las valoraciones
+	
+	var start_session=getSessionStorage("start_session"); 
+	if(typeof start_session == "undefined"  || start_session==null)	
+	{	
+		var success_clear = function(status) {
+            alert('Message: ' + status);
+        }
+
+        var error_clear = function(status) {
+            alert('Error: ' + status);
+        }
+
+       // window.cache.clear(success_clear, error_clear);
+		getSessionStorage("start_session", "inicio");
+	}
+	
+	
+	/* *********************************************************************** */
+	/* Comentar desde INICIO TEST NOTIFICACIONES hasta FIN TEST NOTIFICACIONES */
+	/* para no realizar el registro del dispositivo	al inicio		 		   */
+	/* *********************************************************************** 
+	
+	// INICIO TEST NOTIFICACIONES	
+	var current_url=window.location.href;
+	var opcion_notif=getLocalStorage("notificacion");
+	var first_exec=getSessionStorage("first_time");
+	if(current_url.indexOf("menu.html")!=-1)
+	{
+		if(typeof opcion_notif == "undefined" || opcion_notif==null || opcion_notif=="si")
+		{
+			if(typeof first_exec == "undefined" || first_exec==null)
+			{
+				setSessionStorage("first_time","yes");
+				register_notif();
+			}
+		}
+	}
+	// FIN TEST NOTIFICACIONES	
+	
+	cordova.plugins.notification.local.on("click", function (notification, state) {
+		 		 
+		 var datos=$.parseJSON(notification.data);
+ 	 
+		 var tipo=(notification.title).split(/\[(.*?)\]/);
+		 switch(tipo[1])
+		 {
+			case "noticia":$("#contenido").attr("src",extern_siteurl_notif+"capitalidad_2016.html?app=mobile&app_ios=mobile&flag="+now);
+							break;
+							
+			case "evento":  $("#contenido").attr("src",extern_siteurl_notif+"calendario.html?app=mobile&app_ios=mobile&flag="+now);
+							break;
+		 }
+		 var tipo=(notification.title).split(/\[(.*?)\]/);
+		 
+		
+	},this);	
+	*/
+	
+	check_internet();			
+	
+}
+
+function register_notif()
+{
+	try 
+	{ 		
+		pushNotification = window.plugins.pushNotification;
+		//$("body").append('<br>Registrando ' + device.platform);
+		if (device.platform == 'android' || device.platform == 'Android' || device.platform == 'amazon-fireos' ) 
+		{
+			pushNotification.register(successHandler, errorHandler, {"senderID":senderID, "ecb":"onNotification"});			
+		} 
+		else
+		{	
+			pushNotification.register(tokenHandler, errorHandler, 
+				{"badge":"true",
+				"sound":"true",
+				"alert":"true",
+				"ecb":"onNotificationAPN"}
+			);	
+		}
+	}
+	catch(err) 
+	{ 
+		$("body").append("<br>Error registro notif: " + err.message); 
+	} 
+}
+function unregister_notif()
+{
+	window.plugins.pushNotification.unregister(function() {
+			//notificar al usuario con un mensaje
+			window.sessionStorage.clear();
+	});
+}
+function config_notifications(check) {
+	
+	switch(check)
+	{
+		default:
+		case "si": 	$("#"+check).val("si");
+					if(getLocalStorage("notificacion")!="si")
+					{
+						setLocalStorage("notificacion","si");
+						register_notif();
+					}
+					break;
+					
+		case "no":  $("#"+check).val("no");
+					if(getLocalStorage("notificacion")!="no")
+					{
+						setLocalStorage("notificacion","no");
+						unregister_notif();
+					}
+					break;
+	}
+	 
+}
+
+// Notificacion para iOS
+function onNotificationAPN(e) {
+	if (e.alert) {
+		 //$("body").append('<br>Notificaci&oacute;n: ' + e.alert);
+		 // Alert (requiere plugin org.apache.cordova.dialogs)
+		 navigator.notification.alert(e.alert);
+	}
+		
+	if (e.sound) {
+		// Sonido (requiere plugin org.apache.cordova.media)
+		var snd = new Media(e.sound);
+		snd.play();
+	}
+	
+	if (e.badge) {
+		pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
+	}
+}
+// GCM notificacion para Android
+function onNotification(e) {
+
+	switch( e.event )
+	{
+		case 'registered':
+					if (e.regid.length > 0)
+					{
+						//$("body").append('<br>Registrado REGID:' + e.regid);
+						registerOnServer(e.regid);
+					}
+					break;
+		
+		case 'message':
+		
+					var notif=e.payload;
+		
+					// Foreground: Notificación en línea, mientras estamos en la aplicación
+					if (e.foreground)
+					{
+  
+						// on Android soundname is outside the payload. 
+						// On Amazon FireOS all custom attributes are contained within payload
+						// var soundfile = e.soundname || e.payload.sound;
+						// if the notification contains a soundname, play it.
+						// playing a sound also requires the org.apache.cordova.media plugin
+						// var my_media = new Media("/android_asset/www/"+ soundfile);
+						// my_media.play();
+						
+						//OPCIÓN: Generamos una notificación en la barra
+						
+						/*var date_notif=notif.date;
+						if(date_notif!="" && date_notif!=null)
+							date_notif=new Date();*/
+						
+						//if(notif.notId!="")
+						//	id_notificacion=notif.notId;		
+						
+						window.plugin.notification.local.add({
+							id:      id_notificacion,
+							//date:    date_notif, 
+							title:   "["+notif.tipo+"] "+notif.title,
+							message: notif.message,
+							data:	 notif.data,
+							ongoing:    true,
+							autoCancel: true
+						});		
+
+						id_notificacion++;						
+											
+					}
+					else
+					{	
+						// e.coldstart: Usuario toca notificación en la barra de notificaciones
+						// Coldstart y background: Enviamos a la página requerida
+						switch(notif.tipo)
+						{
+							case "noticia": $("#contenido").attr("src",extern_siteurl_notif+"capitalidad_2016.html?app=mobile&app_ios=mobile&flag="+now);
+											break;
+							case "evento":   $("#contenido").attr("src",extern_siteurl_notif+"calendario.html?app=mobile&app_ios=mobile&flag="+now);
+											break;
+						}
+						
+					}					
+					break;
+		
+		case 'error':
+					$("body").append('<br>Error:'+ e.msg);
+					break;
+		
+		default:
+					$("body").append('<br>Evento desconocido');
+					break;
+	}
+}
+
+function registerOnServer(registrationId) {
+
+	//var api_key=getLocalStorage("api-key");
+	//var mail=getLocalStorage("user_session");
+
+    $.ajax({
+        type: "POST",
+        url: extern_siteurl_op,
+		data: { v: [['id', registrationId]], op: 'pushandroid' },
+		/*headers: {
+				'Authorization': 'Basic ' + utf8_to_b64(mail+":"+api_key),
+				'X-ApiKey':'d2a3771d-f2f3-4fc7-9f9f-8ad7697c81dc'
+			},*/
+		dataType: 'json',
+		crossDomain: true, 
+        success: function() {          	
+					setSessionStorage("regID", registrationId);					
+				},
+        error: function(jqXHR) {
+					if(jqXHR.status == 200) {
+						//$("body").append('<br>Listo para notificaciones');	
+
+						//notificar al usuario con un mensaje						
+						setSessionStorage("regID", registrationId);
+					}	
+					if(jqXHR.status == 500) {
+						$("body").append('<br>El dispositivo no se pudo registrar para recibir notificaciones.');
+					}	
+				}
+		
+    });
+}
+
+function registerOnServerIOS(registrationId) {
+
+	//var api_key=getLocalStorage("api-key");
+	//var mail=getLocalStorage("user_session");
+
+    $.ajax({
+        type: "POST",
+        url: extern_siteurl_op,
+		data: { v: [['id', registrationId]], op: 'pushandroid' },
+		/*headers: {
+				'Authorization': 'Basic ' + utf8_to_b64(mail+":"+api_key),
+				'X-ApiKey':'d2a3771d-f2f3-4fc7-9f9f-8ad7697c81dc'
+			},*/
+		dataType: 'json',
+		crossDomain: true, 
+        success: function() {          	
+					setSessionStorage("regID", registrationId);					
+				},
+        error: function(jqXHR) {
+					if(jqXHR.status == 200) {
+						//$("body").append('<br>Listo para notificaciones');	
+
+						//notificar al usuario con un mensaje						
+						setSessionStorage("regID", registrationId);
+					}	
+					if(jqXHR.status == 500) {
+						$("body").append('<br>El dispositivo no se pudo registrar para recibir notificaciones.');
+					}	
+				}
+		
+    });
+}
+function tokenHandler (result) {
+	//$("body").append('<br>Listo para notificaciones');
+	registerOnServerIOS(result);
+}
+
+function successHandler (result) {
+	//$("body").append('Exito: '+result);
+}
+
+function errorHandler (error) {
+	$("body").append('Error: '+error);
+} 
+//FIN NOTIFICACIONES
+    
 function onBackKeyDown()
 {
 	if($("#contenido").attr("src")=="offline.html") 
@@ -117,6 +410,88 @@ function check_internet(){
 	}
 
 }
+
+function change_content_iframe()
+{
+	var myIframe=document.getElementById('contenido');
+	if((myIframe.contentWindow.document.location.href).indexOf("menu.html")!=-1)
+		show_close_app();
+}
+function show_close_app()
+{
+	if (device.platform == 'android' || device.platform == 'Android' || device.platform == 'amazon-fireos' ) 
+	{
+		setTimeout(function(){	
+		
+			if( ($("#contenido").attr("src")).indexOf("index.html")!=-1 || ($("#contenido").attr("src")).indexOf("offline.html")!=-1 ) 
+			{
+				$('body').prepend("<div style='width:100%;margin:auto;text-align:right;color:#f6f6f6;background:#01448A;'><i class='fa fa-times fa-2' style='padding:5px 25px;margin:auto'> </i></div>");
+			}
+			
+		},3600);	
+	}
+}
+
+function get_var_url(variable){
+
+	var tipo=typeof variable;
+	var direccion=location.href;
+	var posicion=direccion.indexOf("?");
+	
+	posicion=direccion.indexOf(variable,posicion) + variable.length; 
+	
+	if (direccion.charAt(posicion)== "=")
+	{ 
+        var fin=direccion.indexOf("&",posicion); 
+        if(fin==-1)
+        	fin=direccion.length;
+        	
+        return direccion.substring(posicion+1, fin); 
+    } 
+	else
+		return false;
+	
+}
+
+function setLocalStorage(keyinput,valinput) 
+{
+	if(typeof(window.localStorage) != 'undefined') { 
+		window.localStorage.setItem(keyinput,valinput); 
+	} 
+	else { 
+		alert("localStorage no definido"); 
+	}
+}
+function getLocalStorage(keyoutput)
+{
+	if(typeof(window.localStorage) != 'undefined') { 
+		return window.localStorage.getItem(keyoutput); 
+	} 
+	else { 
+		alert("localStorage no definido"); 
+	}
+}
+function setSessionStorage(keyinput,valinput)
+{
+	if(typeof(window.sessionStorage) != 'undefined') { 
+		window.sessionStorage.setItem(keyinput,valinput); 
+	} 
+	else { 
+		alert("sessionStorage no definido"); 
+	}
+}
+function getSessionStorage(keyoutput)
+{
+	if(typeof(window.sessionStorage) != 'undefined') { 
+		return window.sessionStorage.getItem(keyoutput); 
+	} 
+	else { 
+		alert("sessionStorage no definido"); 
+	}
+}
+
+/*************************************************************/
+// SIN USO ACTUALMENTE 
 function show_notification(msg)
 {
 	/*window.plugin.notification.local.add({
@@ -155,7 +530,6 @@ function show_notification(msg)
 	
 }
 
-/*************************************************************/
 function ajax_operation(values,operation)
 {
 	var retorno=false;		
@@ -241,42 +615,4 @@ function ajax_operation_cross(values,operation)
 	return retorno;					
 }
 
-function get_var_url(variable){
-
-	var tipo=typeof variable;
-	var direccion=location.href;
-	var posicion=direccion.indexOf("?");
-	
-	posicion=direccion.indexOf(variable,posicion) + variable.length; 
-	
-	if (direccion.charAt(posicion)== "=")
-	{ 
-        var fin=direccion.indexOf("&",posicion); 
-        if(fin==-1)
-        	fin=direccion.length;
-        	
-        return direccion.substring(posicion+1, fin); 
-    } 
-	else
-		return false;
-	
-}
 /*************************************************************/
-function setLocalStorage(keyinput,valinput) 
-{
-	if(typeof(window.localStorage) != 'undefined') { 
-		window.localStorage.setItem(keyinput,valinput); 
-	} 
-	else { 
-		alert("localStorage no definido"); 
-	}
-}
-function getLocalStorage(keyoutput)
-{
-	if(typeof(window.localStorage) != 'undefined') { 
-		return window.localStorage.getItem(keyoutput); 
-	} 
-	else { 
-		alert("localStorage no definido"); 
-	}
-}
