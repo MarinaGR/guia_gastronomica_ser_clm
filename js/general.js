@@ -38,16 +38,16 @@ function onBodyLoad()
 
 function onDeviceReady()
 {
+	//RECOGER device.uuid para las valoraciones
+	uuid=device.uuid;
+	setLocalStorage("uuid", uuid);
+	
 	document.addEventListener("offline", onOffline, false);
 	document.addEventListener("online", onOnline, false);
 	
 	document.addEventListener("backbutton", onBackKeyDown, false);
 	document.addEventListener("menubutton", onMenuKeyDown, false);
-	
-	//RECOGER device.uuid para las valoraciones
-	uuid=device.uuid;
-	setLocalStorage("uuid",uuid);
-	
+		
 	var start_session=getSessionStorage("start_session"); 
 	if(typeof start_session == "undefined"  || start_session==null)	
 	{	
@@ -355,6 +355,7 @@ function onOnline()
 {
 	setTimeout(function(){
 		$("#contenido").attr("src",extern_siteurl+"&devid="+getLocalStorage("uuid"));
+		alert(extern_siteurl+"&devid="+getLocalStorage("uuid"));
 	},250);
 	
 	/*var networkState = navigator.connection.type;
@@ -390,12 +391,13 @@ function check_internet(){
 			$("#contenido").attr("src","offline.html");				
 		},250);
 	}
-	else 
+	else  
 	{
 		if(typeof $("#contenido").attr("src") == "undefined")
 		{			
 			setTimeout(function(){
 				$("#contenido").attr("src",extern_siteurl+"&devid="+getLocalStorage("uuid"));
+				alert(extern_siteurl+"&devid="+getLocalStorage("uuid"));
 			},250);
 			
 			/*NOTIFICACIONES
@@ -415,24 +417,18 @@ function check_internet(){
 
 }
 
-function change_content_iframe()
-{
-	var myIframe=document.getElementById('contenido');
-	if((myIframe.contentWindow.document.location.href).indexOf("menu.html")!=-1)
-		show_close_app();
-}
 function show_close_app()
 {
 	if (device.platform == 'android' || device.platform == 'Android' || device.platform == 'amazon-fireos' ) 
 	{
 		setTimeout(function(){	
-		
-			if( ($("#contenido").attr("src")).indexOf("index.html")!=-1 || ($("#contenido").attr("src")).indexOf("offline.html")!=-1 ) 
+			var myIframe=document.getElementById('contenido');
+			if((myIframe.contentWindow.document.location.href).indexOf("menu.html")!=-1 || ($("#contenido").attr("src")).indexOf("offline.html")!=-1)
 			{
-				$('body').prepend("<div style='width:100%;margin:auto;text-align:right;color:#f6f6f6;background:#01448A;' onclick='navigator.app.exitApp();'><i class='fa fa-times fa-2' style='padding:5px 25px;margin:auto'> </i></div>");
+				$('#boton_cierre').html("<div style='width:100%;margin:auto;text-align:right;color:#f6f6f6;background:#01448A;' onclick='navigator.app.exitApp();'><i class='fa fa-times fa-2' style='padding:5px 25px;margin:auto'> </i></div>");
 			}
 			
-		},3600);	
+		},500);	
 	}
 }
 

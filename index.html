@@ -15,13 +15,17 @@
 		<script src="./js/jquery_ui.js"></script>
 		<script src="./js/general.js"></script>
 		<script src="./cordova.js"></script>
+		<script>
+			document.addEventListener(function() {
+				show_close_app();
+			}, false);
+		</script>
 	</head>
 
 	<body onload="onBodyLoad()">
-
-		<iframe id="contenido" style="width:100%; height: 100%; border: 0;background:url(./resources/images/general/loader.gif) no-repeat center" onload="change_content_iframe();" >
+		<div id="boton_cierre"> </div>
+		<iframe id="contenido" style="width:100%; height: 100%; border: 0;background:url(./resources/images/general/loader.gif) no-repeat center" >
 		</iframe>
-		
 	</body>
 	
 </html>
