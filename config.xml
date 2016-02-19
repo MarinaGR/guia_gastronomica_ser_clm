@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns = "http://www.w3.org/ns/widgets"
 		xmlns:gap   = "http://phonegap.com/ns/1.0"
-		id          = "com.ovnyline.guiagastronomica-SERclm"
+		id          = "com.ovnyline.guiagastronomica-SERclm-pruebas" <!--cambio temporal para testeos-->
 		version     = "1.0.2" > 		
 		
 	<!-- 1.0.1: IOS cambio icono y página sin conexión -->
 	<!-- 1.0.2: Boton cierre android, borrado cache en cada inicio de app, notificaciones push, segmentacion y valoraciones restaurantes, buscador -->
 
-    <name>Guía Gastronómica SER Castilla La Mancha</name>
+    <name>PRUEBAS Guía Gastronómica SER Castilla La Mancha</name>
 
     <description>
 		Aplicación con información gastronómica de interés en Castilla-La Mancha, todo organizado por provincias (cada una identificada con un color).
