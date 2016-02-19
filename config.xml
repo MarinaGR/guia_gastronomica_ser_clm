@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns = "http://www.w3.org/ns/widgets"
 		xmlns:gap   = "http://phonegap.com/ns/1.0"
-		id          = "com.ovnyline.guiagastronomica-SERclm-pruebas" <!--cambio temporal para testeos-->
-		version     = "1.0.2" > 		
+		id          = "com.ovnyline.guiagastronomica-SERclm-pruebas" 
+		version     = "1.0.2" > 
+
+	<!--cambio temporal identificador y nombre de la app para testeos-->		
 		
 	<!-- 1.0.1: IOS cambio icono y página sin conexión -->
 	<!-- 1.0.2: Boton cierre android, borrado cache en cada inicio de app, notificaciones push, segmentacion y valoraciones restaurantes, buscador -->
