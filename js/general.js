@@ -355,7 +355,6 @@ function onOnline()
 {
 	setTimeout(function(){
 		$("#contenido").attr("src",extern_siteurl+"&devid="+getLocalStorage("uuid"));
-		alert(extern_siteurl+"&devid="+getLocalStorage("uuid"));
 	},250);
 	
 	/*var networkState = navigator.connection.type;
@@ -391,13 +390,12 @@ function check_internet(){
 			$("#contenido").attr("src","offline.html");				
 		},250);
 	}
-	else  
+	else 
 	{
 		if(typeof $("#contenido").attr("src") == "undefined")
 		{			
 			setTimeout(function(){
 				$("#contenido").attr("src",extern_siteurl+"&devid="+getLocalStorage("uuid"));
-				alert(extern_siteurl+"&devid="+getLocalStorage("uuid"));
 			},250);
 			
 			/*NOTIFICACIONES
