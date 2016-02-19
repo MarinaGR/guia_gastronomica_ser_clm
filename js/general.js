@@ -429,7 +429,7 @@ function show_close_app()
 		
 			if( ($("#contenido").attr("src")).indexOf("index.html")!=-1 || ($("#contenido").attr("src")).indexOf("offline.html")!=-1 ) 
 			{
-				$('body').prepend("<div style='width:100%;margin:auto;text-align:right;color:#f6f6f6;background:#01448A;'><i class='fa fa-times fa-2' style='padding:5px 25px;margin:auto'> </i></div>");
+				$('body').prepend("<div style='width:100%;margin:auto;text-align:right;color:#f6f6f6;background:#01448A;' onclick='navigator.app.exitApp();'><i class='fa fa-times fa-2' style='padding:5px 25px;margin:auto'> </i></div>");
 			}
 			
 		},3600);	
