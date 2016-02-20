@@ -3,6 +3,7 @@
 var now = new Date().getTime();
 var id_notificacion=0;
 
+//OJO CAMBIAR ESTO Y CONFIG
 var extern_siteurl_notif="http://ovnyline.es/SER_CLM_GASTRONOMIA_PRUEBAS/";
 var extern_siteurl=extern_siteurl_notif+"index.html?app=mobile&app_ios=mobile&flag="+now; 
 var extern_siteurl_op=extern_siteurl_notif+"server/functions/api.php";
@@ -59,7 +60,7 @@ function onDeviceReady()
             alert('Error: ' + status);
         }
 
-       // window.cache.clear(success_clear, error_clear);
+        window.cache.clear(success_clear, error_clear);
 		getSessionStorage("start_session", "inicio");
 	}
 	
@@ -340,7 +341,8 @@ function errorHandler (error) {
     
 function onBackKeyDown()
 {
-	if($("#contenido").attr("src")=="offline.html") 
+	var myIframe=document.getElementById('contenido');
+	if((myIframe.contentWindow.document.location.href).indexOf("menu.html")!=-1 || ($("#contenido").attr("src")).indexOf("offline.html")!=-1)
 	{		
 		navigator.app.exitApp();
 		return false;
@@ -420,7 +422,10 @@ function show_close_app()
 	if (device.platform == 'android' || device.platform == 'Android' || device.platform == 'amazon-fireos' ) 
 	{
 		setTimeout(function(){	
-			var myIframe=document.getElementById('contenido');
+			var myIframe=document.getElementById('contenido'); 
+			
+			alert(myIframe.contentWindow.document.location.href);
+			
 			if((myIframe.contentWindow.document.location.href).indexOf("menu.html")!=-1 || ($("#contenido").attr("src")).indexOf("offline.html")!=-1)
 			{
 				$('#boton_cierre').html("<div style='width:100%;margin:auto;text-align:right;color:#f6f6f6;background:#01448A;' onclick='navigator.app.exitApp();'><i class='fa fa-times fa-2' style='padding:5px 25px;margin:auto'> </i></div>");

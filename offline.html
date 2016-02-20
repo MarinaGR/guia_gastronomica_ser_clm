@@ -16,10 +16,20 @@
 		<script src="./js/jquery_ui.js"></script>
 		<script src="./js/general.js"></script>
 		<script src="./cordova.js"></script>
-		<script>
-			document.addEventListener(function() {
-				show_close_app();
+		<script>			
+		document.addEventListener("deviceready", function() {
+			show_close_app();
+			document.addEventListener("backbutton", function() {
+				navigator.app.exitApp();
+				return false;
 			}, false);
+		});
+		
+		function onBackKeyDown()
+		{
+			navigator.app.exitApp();
+			return false;
+		}
 		</script>
 	</head>
 
