@@ -52,15 +52,7 @@ function onDeviceReady()
 	var start_session=getSessionStorage("start_session"); 
 	if(typeof start_session == "undefined"  || start_session==null)	
 	{	
-		var success_clear = function(status) {
-            alert('Message: ' + status);
-        }
-
-        var error_clear = function(status) {
-            alert('Error: ' + status);
-        }
-
-        window.cache.clear(success_clear, error_clear);
+        window.cache.clear(function(status) {}, function(status) {});
 		getSessionStorage("start_session", "inicio");
 	}
 	
@@ -68,7 +60,7 @@ function onDeviceReady()
 	/* *********************************************************************** */
 	/* Comentar desde INICIO TEST NOTIFICACIONES hasta FIN TEST NOTIFICACIONES */
 	/* para no realizar el registro del dispositivo	al inicio		 		   */
-	/* *********************************************************************** 
+	/* *********************************************************************** */
 	
 	// INICIO TEST NOTIFICACIONES	
 	var current_url=window.location.href;
@@ -104,7 +96,7 @@ function onDeviceReady()
 		 
 		
 	},this);	
-	*/
+	
 	
 	check_internet();			
 	
