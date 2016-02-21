@@ -63,10 +63,11 @@ function onDeviceReady()
 	/* *********************************************************************** */
 	
 	// INICIO TEST NOTIFICACIONES	
-	var current_url=window.location.href;
-	var opcion_notif=getLocalStorage("notificacion");
+	var opcion_notif=getLocalStorage("notificacion");	
 	var first_exec=getSessionStorage("first_time");
-	if(current_url.indexOf("menu.html")!=-1)
+	
+	//var myIframe=document.getElementById('contenido');
+	//if((myIframe.contentWindow.document.location.href).indexOf("menu.html")!=-1)
 	{
 		if(typeof opcion_notif == "undefined" || opcion_notif==null || opcion_notif=="si")
 		{
