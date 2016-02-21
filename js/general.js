@@ -66,6 +66,9 @@ function onDeviceReady()
 	var opcion_notif=getLocalStorage("notificacion");	
 	var first_exec=getSessionStorage("first_time");
 	
+	alert("opcion_notif "+opcion_notif);
+	alert("first_exec "+first_exec);
+	
 	//var myIframe=document.getElementById('contenido');
 	//if((myIframe.contentWindow.document.location.href).indexOf("menu.html")!=-1)
 	{
@@ -74,6 +77,7 @@ function onDeviceReady()
 			if(typeof first_exec == "undefined" || first_exec==null)
 			{
 				setSessionStorage("first_time","yes");
+				alert("registro");
 				register_notif();
 			}
 		}
