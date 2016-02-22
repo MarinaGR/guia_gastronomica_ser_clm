@@ -33,7 +33,7 @@ function onBodyLoad()
 	if(typeof fecha == "undefined"  || fecha==null)	
 	{	
 		var nueva_fecha=now; 
-		setLocalStorage("fecha", nueva_fecha);
+		setLocalStorage("fecha", nueva_fecha); 
 	}
 }
 
@@ -98,7 +98,8 @@ function onDeviceReady()
 							break;
 							
 			case "evento":  
-			default:		$("#contenido").attr("src",extern_siteurl_notif+"calendario.html?app=mobile&app_ios=mobile&flag="+now);
+			default:
+							$("#contenido").attr("src",extern_siteurl_notif+"calendario.html?app=mobile&app_ios=mobile&flag="+now);
 							break;
 		 }
 		 var tipo=(notification.title).split(/\[(.*?)\]/);
@@ -275,7 +276,7 @@ function onNotification(e) {
 						{
 							case "noticia": $("#contenido").attr("src",extern_siteurl_notif+"capitalidad_2016.html?app=mobile&app_ios=mobile&flag="+now);
 											break;
-							case "evento":
+							case "evento":   
 							default:
 											$("#contenido").attr("src",extern_siteurl_notif+"calendario.html?app=mobile&app_ios=mobile&flag="+now);
 											break;
