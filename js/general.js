@@ -52,11 +52,17 @@ function onDeviceReady()
 	var start_session=getSessionStorage("start_session"); 
 	if(typeof start_session == "undefined" || start_session==null)	
 	{	
-		if(now>parseInt(getLocalStorage("fecha"))+60*60*24*5) //cada 5 días limpia cache
+		alert(start_session);
+		alert(now);
+		alert(getLocalStorage("fecha"));
+		alert(parseInt(getLocalStorage("fecha"))+60*60*24*5)
+		
+		if(now>parseInt(getLocalStorage("fecha"))+60*2)//*60*24*5) //cada 5 días limpia cache
 		{
 			window.cache.clear(function(status) {}, function(status) {});
 			var nueva_fecha=now;
 			setLocalStorage("fecha", nueva_fecha);
+			alert("limpio cache")
 		}
 		getSessionStorage("start_session", "inicio");
 	}
@@ -69,9 +75,6 @@ function onDeviceReady()
 	// INICIO TEST NOTIFICACIONES	
 	var opcion_notif=getLocalStorage("notificacion");	
 	var first_exec=getSessionStorage("first_time");
-	
-	alert("opcion_notif "+opcion_notif);
-	alert("first_exec "+first_exec);
 	
 	//var myIframe=document.getElementById('contenido');
 	//if((myIframe.contentWindow.document.location.href).indexOf("menu.html")!=-1)
@@ -92,6 +95,9 @@ function onDeviceReady()
 		 var datos=$.parseJSON(notification.data);
  	 
 		 var tipo=(notification.title).split(/\[(.*?)\]/);
+		 
+		 alert("tipo "+tipo);
+		 
 		 switch(tipo[1])
 		 {
 			case "noticia":$("#contenido").attr("src",extern_siteurl_notif+"capitalidad_2016.html?app=mobile&app_ios=mobile&flag="+now);
@@ -225,7 +231,7 @@ function onNotification(e) {
 		case 'registered':
 					if (e.regid.length > 0)
 					{
-						$("body").append('<br>Registrado REGID:' + e.regid);
+						//$("body").append('<br>Registrado REGID:' + e.regid);
 						registerOnServer(e.regid);
 					}
 					break;
@@ -272,6 +278,7 @@ function onNotification(e) {
 					{	
 						// e.coldstart: Usuario toca notificación en la barra de notificaciones
 						// Coldstart y background: Enviamos a la página requerida
+						alert("tipo2 "+notif.tipo)
 						switch(notif.tipo)
 						{
 							case "noticia": $("#contenido").attr("src",extern_siteurl_notif+"capitalidad_2016.html?app=mobile&app_ios=mobile&flag="+now);
@@ -286,11 +293,11 @@ function onNotification(e) {
 					break;
 		
 		case 'error':
-					$("body").append('<br>Error:'+ e.msg);
+					//$("body").append('<br>Error:'+ e.msg);
 					break;
 		
 		default:
-					$("body").append('<br>Evento desconocido');
+					//$("body").append('<br>Evento desconocido');
 					break;
 	}
 }
@@ -311,13 +318,13 @@ function registerOnServer(registrationId) {
 		dataType: 'json',
 		crossDomain: true, 
         success: function() {      
-					$("body").append('<br>Listo para notificaciones');	    	
+					//$("body").append('<br>Listo para notificaciones');	    	
 					setSessionStorage("regID", registrationId);	
 					setLocalStorage("notificacion","si");					
 				},
         error: function(jqXHR) {
 					if(jqXHR.status == 200) {
-						$("body").append('<br>Listo para notificaciones');	
+						//$("body").append('<br>Listo para notificaciones');	
 
 						//notificar al usuario con un mensaje						
 						setSessionStorage("regID", registrationId);
@@ -374,11 +381,11 @@ function tokenHandler (result) {
 }
 
 function successHandler (result) {
-	$("body").append('Exito: '+result);
+	//$("body").append('Exito: '+result);
 }
 
 function errorHandler (error) {
-	$("body").append('Error: '+error);
+	//$("body").append('Error: '+error);
 } 
 //FIN NOTIFICACIONES
     
@@ -527,7 +534,7 @@ function show_close_app()
 		setTimeout(function(){	
 			var myIframe=document.getElementById('contenido'); 
 			
-			alert(myIframe.contentWindow.document.location.href);
+			//alert(myIframe.contentWindow.document.location.href);
 			
 			if((myIframe.contentWindow.document.location.href).indexOf("menu.html")!=-1 || ($("#contenido").attr("src")).indexOf("offline.html")!=-1)
 			{
