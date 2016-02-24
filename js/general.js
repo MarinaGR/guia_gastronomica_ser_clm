@@ -29,11 +29,11 @@ function onBodyLoad()
 {	
     document.addEventListener("deviceready", onDeviceReady, false); 
 	
+	alert(getLocalStorage("fecha"));
 	var fecha=getLocalStorage("fecha"); 
 	if(typeof fecha == "undefined"  || fecha==null)	
 	{	
-		var nueva_fecha=now; 
-		setLocalStorage("fecha", nueva_fecha); 
+		setLocalStorage("fecha", now); 
 	}
 }
 
@@ -52,16 +52,15 @@ function onDeviceReady()
 	var start_session=getSessionStorage("start_session"); 
 	if(typeof start_session == "undefined" || start_session==null)	
 	{	
+		var nueva_fecha=parseInt(getLocalStorage("fecha"))+60; //60*60*24*5  
 		alert(start_session);
 		alert(now);
-		alert(getLocalStorage("fecha"));
-		alert(parseInt(getLocalStorage("fecha"))+60*60*24*5)
+		alert(nueva_fecha);
 		
-		if(now>parseInt(getLocalStorage("fecha"))+60*2)//*60*24*5) //cada 5 días limpia cache
+		if(now>nueva_fecha) //cada 5 días limpia cache
 		{
 			window.cache.clear(function(status) {}, function(status) {});
-			var nueva_fecha=now;
-			setLocalStorage("fecha", nueva_fecha);
+			setLocalStorage("fecha", now);
 			alert("limpio cache")
 		}
 		getSessionStorage("start_session", "inicio");
@@ -90,8 +89,9 @@ function onDeviceReady()
 	}
 	// FIN TEST NOTIFICACIONES	
 	
-	cordova.plugins.notification.local.on("click", function (notification, state) {
-		 		 
+	//cordova.plugins.notification.local.on("click", function (notification, state) {
+	window.plugin.notification.local.onclick = function (notification, state, json) {
+	
 		 var datos=$.parseJSON(notification.data);
  	 
 		 var tipo=(notification.title).split(/\[(.*?)\]/);
@@ -108,11 +108,10 @@ function onDeviceReady()
 							$("#contenido").attr("src",extern_siteurl_notif+"calendario.html?app=mobile&app_ios=mobile&flag="+now);
 							break;
 		 }
-		 var tipo=(notification.title).split(/\[(.*?)\]/);
 		 
+	};
+	//},this);	
 		
-	},this);	
-	
 	
 	check_internet();			
 	
@@ -261,6 +260,8 @@ function onNotification(e) {
 						//if(notif.notId!="")
 						//	id_notificacion=notif.notId;		
 						
+						alert("tipo2 "+notif.tipo);
+						
 						window.plugin.notification.local.add({
 							id:      id_notificacion,
 							//date:    date_notif, 
@@ -278,7 +279,9 @@ function onNotification(e) {
 					{	
 						// e.coldstart: Usuario toca notificación en la barra de notificaciones
 						// Coldstart y background: Enviamos a la página requerida
-						alert("tipo2 "+notif.tipo)
+						
+						alert("tipo3 "+notif.tipo);
+						
 						switch(notif.tipo)
 						{
 							case "noticia": $("#contenido").attr("src",extern_siteurl_notif+"capitalidad_2016.html?app=mobile&app_ios=mobile&flag="+now);
