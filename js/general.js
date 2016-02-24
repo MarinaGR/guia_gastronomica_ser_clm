@@ -52,8 +52,7 @@ function onDeviceReady()
 	var start_session=getSessionStorage("start_session"); 
 	if(typeof start_session == "undefined" || start_session==null)	
 	{	
-		var nueva_fecha=parseInt(getLocalStorage("fecha"))+60; //60*60*24*5  
-		alert(start_session);
+		var nueva_fecha=parseInt(getLocalStorage("fecha"))+60*60; //60*60*24*5  
 		alert(now);
 		alert(nueva_fecha);
 		

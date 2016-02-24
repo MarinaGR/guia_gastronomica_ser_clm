@@ -16,9 +16,27 @@
 		<script src="./js/jquery_ui.js"></script>
 		<script src="./js/general.js"></script>
 		<script src="./cordova.js"></script>
+		<script>
+
+			document.addEventListener("deviceready", function ()
+			{
+				document.addEventListener("backbutton", onBackKeyDown, false);
+
+				var boton_cierre=document.getElementById("boton_cierre");
+				if(boton_cierre!=null)
+				{
+					boton_cierre.addEventListener("click", function () {
+						navigator.app.exitApp();
+						return false;
+					}, false);	
+				}
+				
+			}, false); 
+
+		</script>
 	</head>
 
-	<body>
+	<body onload="onBodyLoad()">
 		
 		<div class="ov_message">
 			Para tener acceso a la aplicación completa, necesita una conexión a internet. <a href="index.html">ACTUALIZAR</a>
@@ -55,7 +73,7 @@
 		
 		</div>		
 		
-		<div id="boton_cierre" onclick='navigator.app.exitApp();'>
+		<div id="boton_cierre">
 			<div style='width:100%;margin:auto;text-align:center;color:#f6f6f6;background:#01448A;cursor:pointer' >
 				<i class='fa fa-times fa-2' style='padding:5px 25px;margin:auto'> </i>
 			</div>
