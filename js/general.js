@@ -52,7 +52,8 @@ function onDeviceReady()
 	var start_session=getSessionStorage("start_session"); 
 	if(typeof start_session == "undefined" || start_session==null)	
 	{	
-		var nueva_fecha=parseInt(getLocalStorage("fecha"))+60*60; //60*60*24*5  
+		var nueva_fecha=parseInt(getLocalStorage("fecha"))+1000*60*3; //60*60*24*5  
+		
 		alert(now);
 		alert(nueva_fecha);
 		
@@ -68,7 +69,7 @@ function onDeviceReady()
 	/* *********************************************************************** */
 	/* Comentar desde INICIO TEST NOTIFICACIONES hasta FIN TEST NOTIFICACIONES */
 	/* para no realizar el registro del dispositivo	al inicio		 		   */
-	/* *********************************************************************** */
+	/* *********************************************************************** 
 	
 	// INICIO TEST NOTIFICACIONES	
 	var opcion_notif=getLocalStorage("notificacion");	
@@ -110,7 +111,7 @@ function onDeviceReady()
 		 
 	};
 	//},this);	
-		
+	*/	
 	
 	check_internet();			
 	
