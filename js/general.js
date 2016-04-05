@@ -1,10 +1,9 @@
 //Global Variables
 
 var now = new Date().getTime();
-var id_notificacion=0;
 
 //OJO CAMBIAR ESTO Y CONFIG
-var extern_siteurl_notif="http://ovnyline.es/SER_CLM_GASTRONOMIA_PRUEBAS/";
+var extern_siteurl_notif="http://ovnyline.es/SER_CLM_GASTRONOMIA_PRUEBAS/"; 
 var extern_siteurl=extern_siteurl_notif+"index.html?app=mobile&app_ios=mobile&flag="+now; 
 var extern_siteurl_op=extern_siteurl_notif+"server/functions/api.php";
 
@@ -69,7 +68,7 @@ function onDeviceReady()
 	/* *********************************************************************** */
 	/* Comentar desde INICIO TEST NOTIFICACIONES hasta FIN TEST NOTIFICACIONES */
 	/* para no realizar el registro del dispositivo	al inicio		 		   */
-	/* *********************************************************************** 
+	/* *********************************************************************** */
 	
 	// INICIO TEST NOTIFICACIONES	
 	var opcion_notif=getLocalStorage("notificacion");	
@@ -111,7 +110,6 @@ function onDeviceReady()
 		 
 	};
 	//},this);	
-	*/	
 	
 	check_internet();			
 	
@@ -142,6 +140,7 @@ function register_notif()
 		//$("body").append("<br>Error registro notif: " + err.message); 
 	} 
 }
+
 function unregister_notif()
 {
 	window.plugins.pushNotification.unregister(function() {
@@ -180,6 +179,7 @@ function unregister_notif()
 			*/
 	});
 }
+
 function config_notifications(check) {
 	
 	switch(check)
