@@ -27,8 +27,7 @@ $(document).ready(function() {
 function onBodyLoad()
 {	
     document.addEventListener("deviceready", onDeviceReady, false); 
-	
-	alert(getLocalStorage("fecha"));
+
 	var fecha=getLocalStorage("fecha"); 
 	if(typeof fecha == "undefined"  || fecha==null)	
 	{	
@@ -51,11 +50,8 @@ function onDeviceReady()
 	var start_session=getSessionStorage("start_session"); 
 	if(typeof start_session == "undefined" || start_session==null)	
 	{	
-		var nueva_fecha=parseInt(getLocalStorage("fecha"))+1000*60*3; //60*60*24*5  
-		
-		alert(now);
-		alert(nueva_fecha);
-		
+		var nueva_fecha=parseInt(getLocalStorage("fecha"))+1000*60*3; //1000*60*60*24*5  
+				
 		if(now>nueva_fecha) //cada 5 días limpia cache
 		{
 			window.cache.clear(function(status) {}, function(status) {});
@@ -77,7 +73,7 @@ function onDeviceReady()
 	//var myIframe=document.getElementById('contenido');
 	//if((myIframe.contentWindow.document.location.href).indexOf("menu.html")!=-1)
 	{
-		if(typeof opcion_notif == "undefined" || opcion_notif==null || opcion_notif=="si")
+		//if(typeof opcion_notif == "undefined" || opcion_notif==null || opcion_notif=="si")
 		{
 			if(typeof first_exec == "undefined" || first_exec==null)
 			{
@@ -230,7 +226,7 @@ function onNotification(e) {
 		case 'registered':
 					if (e.regid.length > 0)
 					{
-						//$("body").append('<br>Registrado REGID:' + e.regid);
+						$("body").append('<br>Registrado REGID:' + e.regid);
 						registerOnServer(e.regid);
 					}
 					break;
@@ -265,14 +261,24 @@ function onNotification(e) {
 						window.plugin.notification.local.add({
 							id:      id_notificacion,
 							//date:    date_notif, 
-							title:   "["+notif.tipo+"] "+notif.title,
+							title:   notif.title,
 							message: notif.message,
 							data:	 notif.data,
 							ongoing:    true,
 							autoCancel: true
 						});		
 
-						id_notificacion++;						
+						id_notificacion++;		
+
+						switch(notif.tipo)
+						{
+							case "noticia": $("#contenido").attr("src",extern_siteurl_notif+"capitalidad_2016.html?app=mobile&app_ios=mobile&flag="+now);
+											break;
+							case "evento":   
+							default:
+											$("#contenido").attr("src",extern_siteurl_notif+"calendario.html?app=mobile&app_ios=mobile&flag="+now);
+											break;
+						}
 											
 					}
 					else
@@ -321,13 +327,13 @@ function registerOnServer(registrationId) {
 		dataType: 'json',
 		crossDomain: true, 
         success: function() {      
-					//$("body").append('<br>Listo para notificaciones');	    	
+					$("body").append('<br>Listo para notificaciones');	    	
 					setSessionStorage("regID", registrationId);	
 					setLocalStorage("notificacion","si");					
 				},
         error: function(jqXHR) {
 					if(jqXHR.status == 200) {
-						//$("body").append('<br>Listo para notificaciones');	
+						$("body").append('<br>Listo para notificaciones');	
 
 						//notificar al usuario con un mensaje						
 						setSessionStorage("regID", registrationId);
@@ -352,7 +358,7 @@ function registerOnServerIOS(registrationId) {
     $.ajax({
         type: "POST",
         url: extern_siteurl_op,
-		data: { v: [['id', registrationId], ['uuid', getLocalStorage('uuid')], ['activo', '1']], op: 'pushandroid' },
+		data: { v: [['id', registrationId], ['uuid', getLocalStorage('uuid')], ['activo', '1']], op: 'pushios' },
 		/*headers: {
 				'Authorization': 'Basic ' + utf8_to_b64(mail+":"+api_key),
 				'X-ApiKey':'d2a3771d-f2f3-4fc7-9f9f-8ad7697c81dc'
@@ -379,7 +385,7 @@ function registerOnServerIOS(registrationId) {
     });
 }
 function tokenHandler (result) {
-	//$("body").append('<br>Listo para notificaciones');
+	$("body").append('<br>Listo para notificaciones');
 	registerOnServerIOS(result);
 }
 
@@ -393,8 +399,8 @@ function errorHandler (error) {
 //FIN NOTIFICACIONES
     
 function onBackKeyDown()
-{
-	var myIframe=document.getElementById('contenido');
+{		
+	var myIframe=document.getElementById('contenido');	
 	if((myIframe.contentWindow.document.location.href).indexOf("menu.html")!=-1 || ($("#contenido").attr("src")).indexOf("offline.html")!=-1)
 	{		
 		navigator.app.exitApp();

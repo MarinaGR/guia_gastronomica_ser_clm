@@ -66,17 +66,18 @@
 	-->	
 	<gap:plugin name="org.apache.cordova.device" version="0.2.12" /> 
 	<gap:plugin name="org.apache.cordova.media" version="0.2.13" />
-	<gap:plugin name="org.apache.cordova.dialogs" version="0.2.10" />
+	<gap:plugin name="org.apache.cordova.dialogs" version="0.3.0" />
 	<gap:plugin name="org.apache.cordova.network-information" version="0.2.12" />	
 	<gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.1" />
 	<gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
-	<gap:plugin name="org.apache.cordova.inappbrowser" version="0.5.2" />
+	<gap:plugin name="org.apache.cordova.inappbrowser" version="0.6.0" />
 	<gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
-	<gap:plugin name="com.phonegap.plugins.pushplugin" version="2.4.0" />
+	<gap:plugin name="com.phonegap.plugins.pushplugin" version="2.5.0" />
 	<plugin name="com.sharinglabs.cordova.plugin.cache" spec="1.0.0" source="pgb" />
-	
+		
 	<!-- Ocultar barra ios, a partir de ios7-->
-	<gap:plugin name="de.appplant.cordova.plugin.hidden-statusbar-overlay" version="1.1.0" />
+	<gap:plugin name="de.appplant.cordova.plugin.hidden-statusbar-overlay" source="pgb" version="1.2.0" />
+	
 	<gap:config-file platform="ios" parent="UIStatusBarHidden">
 		<true/>
 	</gap:config-file>
@@ -106,26 +107,13 @@
     <icon src="res/icon/windows-phone/icon-48.png"  gap:platform="winphone" />
     <icon src="res/icon/windows-phone/icon-173.png" gap:platform="winphone"   gap:role="background" />
 
-    <!-- Define app splash screen for Android. -->
-    <!-- 
-    <gap:splash src="res/screen/android/screen-ldpi-portrait.png"  gap:platform="android" gap:density="ldpi" />
-    <gap:splash src="res/screen/android/screen-mdpi-portrait.png"  gap:platform="android" gap:density="mdpi" />
-    <gap:splash src="res/screen/android/screen-hdpi-portrait.png"  gap:platform="android" gap:density="hdpi" />
-    <gap:splash src="res/screen/android/screen-xhdpi-portrait.png" gap:platform="android" gap:density="xhdpi" />
-    -->
-    <!-- Define app splash screen for IOS. -->
-    
+    <!-- Define app splash screen for IOS. -->    
     <gap:splash src="res/screen/ios/screen-iphone-portrait.png"    gap:platform="ios"     width="320" height="480" />
     <gap:splash src="res/screen/ios/screen-iphone-portrait-2x.png" gap:platform="ios"     width="640" height="960" />
     <gap:splash src="res/screen/ios/screen-ipad-portrait.png"      gap:platform="ios"     width="768" height="1024" />
     <gap:splash src="res/screen/ios/screen-ipad-landscape.png"     gap:platform="ios"     width="1024" height="768" />
 	
 	<gap:splash src="res/screen/ios/Default-568h@2x.png" 		   gap:platform="ios"    width="640" height="1136"/>
-    
-    <!-- Define app splash screen for Winphone. -->
-    <!--
-    <gap:splash src="res/screen/windows-phone/screen-portrait.png" gap:platform="winphone" />
-    -->
 	
     <!-- Define access to external domains. -->    
     <access origin="*"/> 
