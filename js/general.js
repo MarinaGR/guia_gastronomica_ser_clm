@@ -3,7 +3,7 @@
 var now = new Date().getTime();
 
 //OJO CAMBIAR ESTO Y CONFIG
-var extern_siteurl_notif="http://ovnyline.es/SER_CLM_GASTRONOMIA_PRUEBAS/"; 
+var extern_siteurl_notif="http://ovnyline.es/SER_CLM_GASTRONOMIA/"; 
 var extern_siteurl=extern_siteurl_notif+"index.html?app=mobile&app_ios=mobile&flag="+now; 
 var extern_siteurl_op=extern_siteurl_notif+"server/functions/api.php";
 
@@ -385,7 +385,7 @@ function registerOnServerIOS(registrationId) {
     });
 }
 function tokenHandler (result) {
-	$("body").append('<br>Listo para notificaciones');
+	$("body").append('<br>Listo para notificaciones<br>'+result);
 	registerOnServerIOS(result);
 }
 
