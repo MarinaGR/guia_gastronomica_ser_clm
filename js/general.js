@@ -50,13 +50,12 @@ function onDeviceReady()
 	var start_session=getSessionStorage("start_session"); 
 	if(typeof start_session == "undefined" || start_session==null)	
 	{	
-		var nueva_fecha=parseInt(getLocalStorage("fecha"))+1000*60*3; //1000*60*60*24*5  
+		var nueva_fecha=parseInt(getLocalStorage("fecha"))+1000*60*60*24*5  
 				
 		if(now>nueva_fecha) //cada 5 días limpia cache
 		{
 			window.cache.clear(function(status) {}, function(status) {});
 			setLocalStorage("fecha", now);
-			alert("limpio cache")
 		}
 		getSessionStorage("start_session", "inicio");
 	}
@@ -116,7 +115,7 @@ function register_notif()
 	try 
 	{ 		
 		pushNotification = window.plugins.pushNotification;
-		//$("body").append('<br>Registrando ' + device.platform);
+		$("body").append('<br>Registrando ' + device.platform);
 		if (device.platform == 'android' || device.platform == 'Android' || device.platform == 'amazon-fireos' ) 
 		{
 			pushNotification.register(successHandler, errorHandler, {"senderID":senderID, "ecb":"onNotification"});			
@@ -133,7 +132,7 @@ function register_notif()
 	}
 	catch(err) 
 	{ 
-		//$("body").append("<br>Error registro notif: " + err.message); 
+		$("body").append("<br>Error registro notif: " + err.message); 
 	} 
 }
 
@@ -203,9 +202,10 @@ function config_notifications(check) {
 // Notificacion para iOS
 function onNotificationAPN(e) {
 	if (e.alert) {
-		 //$("body").append('<br>Notificaci&oacute;n: ' + e.alert);
+		 $("body").append('<br>Notificaci&oacute;n: ' + e.alert);
 		 // Alert (requiere plugin org.apache.cordova.dialogs)
 		 navigator.notification.alert(e.alert);
+		 alert("Notificación IOS");
 	}
 		
 	if (e.sound) {
@@ -255,9 +255,8 @@ function onNotification(e) {
 						
 						//if(notif.notId!="")
 						//	id_notificacion=notif.notId;		
-						
-						alert("tipo2 "+notif.tipo);
-						
+					
+												
 						window.plugin.notification.local.add({
 							id:      id_notificacion,
 							//date:    date_notif, 

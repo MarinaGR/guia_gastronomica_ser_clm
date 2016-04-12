@@ -72,7 +72,7 @@
 	<gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
 	<gap:plugin name="org.apache.cordova.inappbrowser" version="0.6.0" />
 	<gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
-	<gap:plugin name="com.phonegap.plugins.pushplugin" version="2.5.0" />
+	<gap:plugin name="com.phonegap.plugins.pushplugin" version="2.4.0" />
 	<plugin name="com.sharinglabs.cordova.plugin.cache" spec="1.0.0" source="pgb" />
 		
 	<!-- Ocultar barra ios, a partir de ios7-->
