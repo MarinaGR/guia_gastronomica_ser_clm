@@ -9,7 +9,7 @@
 	<!-- 1.0.1: IOS cambio icono y página sin conexión -->
 	<!-- 1.0.2: Boton cierre android, borrado cache en cada inicio de app, notificaciones push, segmentacion y valoraciones restaurantes, buscador -->
 
-    <name>PRUEBAS Guía Gastronómica SER Castilla La Mancha</name>
+    <name>Guía Gastronómica SER Castilla La Mancha</name>
 
     <description>
 		Aplicación con información gastronómica de interés en Castilla-La Mancha, todo organizado por provincias (cada una identificada con un color).
