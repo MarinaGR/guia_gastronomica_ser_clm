@@ -90,8 +90,6 @@ function onDeviceReady()
  	 
 		 var tipo=(notification.title).split(/\[(.*?)\]/);
 		 
-		 alert("tipo "+tipo);
-		 
 		 switch(tipo[1])
 		 {
 			case "noticia":$("#contenido").attr("src",extern_siteurl_notif+"capitalidad_2016.html?app=mobile&app_ios=mobile&flag="+now);
@@ -203,20 +201,21 @@ function config_notifications(check) {
 // Notificacion para iOS
 function onNotificationAPN(e) {
 	if (e.alert) {
-		 $("body").append('<br>Notificaci&oacute;n: ' + e.alert);
-		 $("body").append('<br>Link_url: ' + e.link_url);
-		 $("body").append('<br>Categoria: ' + e.category);
+
 		 // Alert (requiere plugin org.apache.cordova.dialogs)
 		 navigator.notification.alert(e.alert);
 								
-		switch(e.tipo)
+		switch(e.category)
 		{
-			case "noticia": $("#contenido").attr("src",extern_siteurl_notif+"capitalidad_2016.html?app=mobile&app_ios=mobile&flag="+now);
+			case "noticia": 
+							setTimeout(function(){
+								$("#contenido").attr("src",extern_siteurl_notif+"capitalidad_2016.html?app=mobile&app_ios=mobile&flag="+now);
+							},1500);
+							
 							break;
 			case "evento":   
 			default:
 							setTimeout(function(){
-								alert(extern_siteurl_notif+"calendario.html?app=mobile&app_ios=mobile&flag="+now);
 								$("#contenido").attr("src",extern_siteurl_notif+"calendario.html?app=mobile&app_ios=mobile&flag="+now);
 							},1500);
 											
@@ -286,16 +285,21 @@ function onNotification(e) {
 						id_notificacion++;	
 
 						window.plugin.notification.local.onclick = function (notification, state, json) {
-						 
-							alert("tipo "+tipo);
 
 							switch(notif.tipo)
 							{
-								case "noticia": $("#contenido").attr("src",extern_siteurl_notif+"capitalidad_2016.html?app=mobile&app_ios=mobile&flag="+now);
+								case "noticia": 
+												setTimeout(function(){
+													$("#contenido").attr("src",extern_siteurl_notif+"capitalidad_2016.html?app=mobile&app_ios=mobile&flag="+now);
+												},1500);
+												
 												break;
 								case "evento":   
 								default:
-												$("#contenido").attr("src",extern_siteurl_notif+"calendario.html?app=mobile&app_ios=mobile&flag="+now);
+												setTimeout(function(){
+													$("#contenido").attr("src",extern_siteurl_notif+"calendario.html?app=mobile&app_ios=mobile&flag="+now);
+												},1500);
+																
 												break;
 							}
 							
@@ -307,17 +311,17 @@ function onNotification(e) {
 						// e.coldstart: Usuario toca notificación en la barra de notificaciones
 						// Coldstart y background: Enviamos a la página requerida
 						
-						alert("tipo3 "+notif.tipo);
-						
 						switch(notif.tipo)
 						{
-							case "noticia": $("#contenido").attr("src",extern_siteurl_notif+"capitalidad_2016.html?app=mobile&app_ios=mobile&flag="+now);
+							case "noticia": 
+											setTimeout(function(){
+												$("#contenido").attr("src",extern_siteurl_notif+"capitalidad_2016.html?app=mobile&app_ios=mobile&flag="+now);
+											},1500);
+											
 											break;
 							case "evento":   
 							default:
-							
 											setTimeout(function(){
-												alert(extern_siteurl_notif+"calendario.html?app=mobile&app_ios=mobile&flag="+now);
 												$("#contenido").attr("src",extern_siteurl_notif+"calendario.html?app=mobile&app_ios=mobile&flag="+now);
 											},1500);
 															
