@@ -106,6 +106,14 @@ function onDeviceReady()
 	
 	check_internet();			
 	
+	var boton_cierre=document.getElementById("boton_cierre");
+	if(boton_cierre!=null)
+	{
+		boton_cierre.addEventListener("click", function () {
+			navigator.app.exitApp();
+			return false;
+		}, false);	
+	}	
 }
 
 function register_notif()

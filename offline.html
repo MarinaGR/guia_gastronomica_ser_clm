@@ -20,8 +20,11 @@
 
 			document.addEventListener("deviceready", function ()
 			{
-				document.addEventListener("backbutton", onBackKeyDown, false);
-
+				document.addEventListener("backbutton", function() {
+					navigator.app.exitApp();
+					return false;
+				}, false);
+				
 				var boton_cierre=document.getElementById("boton_cierre");
 				if(boton_cierre!=null)
 				{
