@@ -371,7 +371,7 @@ function registerOnServer(registrationId) {
 					}
 					else {
 						//$("body").append('<br>El dispositivo no se pudo registrar para recibir notificaciones. Err.'+jqXHR.status);
-						navigator.notification.alert("El dispositivo no se pudo registrar para recibir notificaciones. Err. ""+jqXHR.status);
+						navigator.notification.alert("El dispositivo no se pudo registrar para recibir notificaciones. Err. "+jqXHR.status);
 					}						
 				}
 		
