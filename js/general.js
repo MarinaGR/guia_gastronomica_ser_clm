@@ -115,7 +115,7 @@ function register_notif()
 	try 
 	{ 		
 		pushNotification = window.plugins.pushNotification;
-		$("body").append('<br>Registrando ' + device.platform);
+		//$("body").append('<br>Registrando ' + device.platform);
 		if (device.platform == 'android' || device.platform == 'Android' || device.platform == 'amazon-fireos' ) 
 		{
 			pushNotification.register(successHandler, errorHandler, {"senderID":senderID, "ecb":"onNotification"});			
@@ -132,7 +132,8 @@ function register_notif()
 	}
 	catch(err) 
 	{ 
-		$("body").append("<br>Error registro notif: " + err.message); 
+		//$("body").append("<br>Error registro notif: " + err.message); 
+		navigator.notification.alert("Error [REG NOTIF] " + err.message);
 	} 
 }
 
@@ -203,9 +204,24 @@ function config_notifications(check) {
 function onNotificationAPN(e) {
 	if (e.alert) {
 		 $("body").append('<br>Notificaci&oacute;n: ' + e.alert);
+		 $("body").append('<br>Link_url: ' + e.link_url);
+		 $("body").append('<br>Categoria: ' + e.category);
 		 // Alert (requiere plugin org.apache.cordova.dialogs)
 		 navigator.notification.alert(e.alert);
-		 alert("Notificación IOS");
+								
+		switch(e.tipo)
+		{
+			case "noticia": $("#contenido").attr("src",extern_siteurl_notif+"capitalidad_2016.html?app=mobile&app_ios=mobile&flag="+now);
+							break;
+			case "evento":   
+			default:
+							setTimeout(function(){
+								alert(extern_siteurl_notif+"calendario.html?app=mobile&app_ios=mobile&flag="+now);
+								$("#contenido").attr("src",extern_siteurl_notif+"calendario.html?app=mobile&app_ios=mobile&flag="+now);
+							},1500);
+											
+							break;
+		}
 	}
 		
 	if (e.sound) {
@@ -226,7 +242,7 @@ function onNotification(e) {
 		case 'registered':
 					if (e.regid.length > 0)
 					{
-						$("body").append('<br>Registrado REGID:' + e.regid);
+						//$("body").append('<br>Registrado REGID:' + e.regid);
 						registerOnServer(e.regid);
 					}
 					break;
@@ -303,7 +319,7 @@ function onNotification(e) {
 											setTimeout(function(){
 												alert(extern_siteurl_notif+"calendario.html?app=mobile&app_ios=mobile&flag="+now);
 												$("#contenido").attr("src",extern_siteurl_notif+"calendario.html?app=mobile&app_ios=mobile&flag="+now);
-											},500);
+											},1500);
 															
 											break;
 						}
@@ -337,23 +353,25 @@ function registerOnServer(registrationId) {
 		dataType: 'json',
 		crossDomain: true, 
         success: function() {      
-					$("body").append('<br>Listo para notificaciones');	    	
+					//$("body").append('<br>Listo para notificaciones');	    	
 					setSessionStorage("regID", registrationId);	
 					setLocalStorage("notificacion","si");					
 				},
         error: function(jqXHR) {
 					if(jqXHR.status == 200) {
-						$("body").append('<br>Listo para notificaciones');	
+						//$("body").append('<br>Listo para notificaciones');	
 
 						//notificar al usuario con un mensaje						
 						setSessionStorage("regID", registrationId);
 						setLocalStorage("notificacion","si");				
 					}	
 					else if(jqXHR.status == 500) {
-						$("body").append('<br>El dispositivo no se pudo registrar para recibir notificaciones.');
+						//$("body").append('<br>El dispositivo no se pudo registrar para recibir notificaciones.');
+						navigator.notification.alert("El dispositivo no se pudo registrar para recibir notificaciones.");
 					}
 					else {
-						$("body").append('<br>El dispositivo no se pudo registrar para recibir notificaciones. Err.'+jqXHR.status);
+						//$("body").append('<br>El dispositivo no se pudo registrar para recibir notificaciones. Err.'+jqXHR.status);
+						navigator.notification.alert("El dispositivo no se pudo registrar para recibir notificaciones. Err. ""+jqXHR.status);
 					}						
 				}
 		
@@ -395,7 +413,7 @@ function registerOnServerIOS(registrationId) {
     });
 }
 function tokenHandler (result) {
-	$("body").append('<br>Listo para notificaciones<br>'+result);
+	//$("body").append('<br>Listo para notificaciones<br>'+result);
 	registerOnServerIOS(result);
 }
 
