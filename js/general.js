@@ -118,9 +118,9 @@ function onDeviceReady()
 	
 	var myIframe=document.getElementById('contenido');		
 	myIframe.addEventListener("load", function () {
-		if(((myIframe.contentWindow.document.location.href).indexOf("facebook")!=-1) || ((myIframe.contentWindow.document.location.href).indexOf("twitter")!=-1)  
+		if(((myIframe.contentWindow.document.location.href).indexOf("facebook")!=-1) || (myIframe.contentWindow.document.location.href).indexOf("twitter")!=-1)  
 		{		
-			window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes');" 
+			window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
 			myIframe.contentWindow.document.history.back();
 		}
 	}, false);	
