@@ -2,13 +2,14 @@
 <widget xmlns = "http://www.w3.org/ns/widgets"
 		xmlns:gap   = "http://phonegap.com/ns/1.0"
 		id          = "com.ovnyline.guiagastronomica-SERclm" 
-		version     = "1.0.2" > 
+		version     = "1.0.3" > 
 
 	<!--cambio temporal identificador y nombre de la app para testeos-->		
 		
 	<!-- 1.0.1: IOS cambio icono y página sin conexión -->
-	<!-- 1.0.2: Boton cierre android, borrado cache en cada inicio de app, notificaciones push, segmentacion y valoraciones restaurantes, buscador -->
-
+	<!-- 1.0.2: Boton cierre android??, borrado cache en cada inicio de app, notificaciones push, segmentacion y valoraciones restaurantes, buscador -->
+	<!-- 1.0.3: Actualiación cli, config (plugins), detección url iframe para carga de enlaces de fb y tw en navegador externo -->
+	
     <name>Guía Gastronómica SER Castilla La Mancha</name>
 
     <description>
@@ -29,7 +30,7 @@
     <feature name="http://api.phonegap.com/1.0/notification"/>
 
     <!-- Customize your app and platform with the preference element. -->
-    <preference name="phonegap-version"           value="3.7.0" />          <!-- all: current version of PhoneGap -->
+    <preference name="phonegap-version"           value="cli-6.3.0" />          <!-- all: current version of PhoneGap -->
     <preference name="orientation"                value="portrait" />        <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
     <preference name="fullscreen"                 value="true" />           <!-- all: hides the status bar at the top of the screen -->
@@ -45,39 +46,28 @@
 	
     <preference name="android-minSdkVersion"      value="15" />             <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
     <preference name="android-installLocation"    value="auto" />           <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
-
-    <!-- Plugins -->
-
-    <!-- Core plugins -->
-	<!--
-	<gap:plugin name="org.apache.cordova.battery-status" version="0.2.11" />
-	<gap:plugin name="org.apache.cordova.camera" version="0.3.2" />
-	<gap:plugin name="org.apache.cordova.console" version="0.2.11" />
-	<gap:plugin name="org.apache.cordova.contacts" version="0.2.13" />
-	<gap:plugin name="org.apache.cordova.device-motion" version="0.2.10" />
-	<gap:plugin name="org.apache.cordova.device-orientation" version="0.3.9" />
-	<gap:plugin name="org.apache.cordova.file" version="1.3.1" />
-	<gap:plugin name="org.apache.cordova.file-transfer" version="0.4.6" />
-	<gap:plugin name="org.apache.cordova.globalization" version="0.3.1" />
-	<gap:plugin name="org.apache.cordova.media-capture" version="0.3.3" />
-	<gap:plugin name="org.apache.cordova.splashscreen" version="0.3.4" />
-	<gap:plugin name="org.apache.cordova.vibration" version="0.3.11" />
-	<gap:plugin name="de.appplant.cordova.plugin.background-mode" version="0.5.0" />
-	-->	
-	<gap:plugin name="org.apache.cordova.device" version="0.2.12" /> 
-	<gap:plugin name="org.apache.cordova.media" version="0.2.13" />
-	<gap:plugin name="org.apache.cordova.dialogs" version="0.3.0" />
-	<gap:plugin name="org.apache.cordova.network-information" version="0.2.12" />	
-	<gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
-	<gap:plugin name="org.apache.cordova.inappbrowser" version="0.6.0" />
-	<gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
-	<gap:plugin name="de.appplant.cordova.plugin.local-notification" version="0.8.1" />
-	<gap:plugin name="com.phonegap.plugins.pushplugin" version="2.4.0" />
-	<plugin name="com.sharinglabs.cordova.plugin.cache" spec="1.0.0" source="pgb" />
-		
-	<!-- Ocultar barra ios, a partir de ios7-->
-	<gap:plugin name="de.appplant.cordova.plugin.hidden-statusbar-overlay" source="pgb" version="1.2.0" />
 	
+	<preference name="android-build-tool" 		  value="gradle" /> 
+
+    <!-- PLUGINS -->
+
+	<gap:plugin name="cordova-plugin-device" source="npm" version="1.1.2" />
+	<gap:plugin name="cordova-plugin-media" source="npm" version="2.3.0" />
+	<gap:plugin name="cordova-plugin-dialogs" source="npm" version="1.2.1" />
+	
+	<gap:plugin name="cordova-plugin-geolocation" source="npm" version="2.2.0" />
+	<gap:plugin name="cordova-plugin-inappbrowser" source="npm" version="1.4.0" />
+	<gap:plugin name="cordova-plugin-x-socialsharing" source="npm" version="5.1.1" />	
+	<gap:plugin name="cordova-plugin-whitelist" source="npm" spec="1.2.2" />
+	
+	<gap:plugin name="cordova-plugin-network-information" source="npm" version="1.2.1" />
+	<gap:plugin name="cordova-plugin-cache" source="npm" version="1.0.5" />
+	
+	<gap:plugin name="de.appplant.cordova.plugin.local-notification" source="npm" version="0.8.4" />	
+	<gap:plugin name="cordova-plugin-pushplugin" source="npm" version="2.6.1" /> 
+
+	<!-- Ocultar barra ios, a partir de ios7-->
+	<gap:plugin name="cordova-plugin-statusbar" source="npm" spec="2.2.0" />
 	<gap:config-file platform="ios" parent="UIStatusBarHidden">
 		<true/>
 	</gap:config-file>
@@ -116,6 +106,8 @@
 	<gap:splash src="res/screen/ios/Default-568h@2x.png" 		   gap:platform="ios"    width="640" height="1136"/>
 	
     <!-- Define access to external domains. -->    
-    <access origin="*"/> 
+    <allow-intent href="*" />
+	<allow-navigation href="*" /> 
+	<access origin="*"/> 
 
 </widget>

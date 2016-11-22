@@ -50,11 +50,12 @@ function onDeviceReady()
 	var start_session=getSessionStorage("start_session"); 
 	if(typeof start_session == "undefined" || start_session==null)	
 	{	
-		var nueva_fecha=parseInt(getLocalStorage("fecha"))+1000*60*60*24*5  
+		var nueva_fecha=parseInt(getLocalStorage("fecha"))+1000*60*60*24*2  
 				
-		if(now>nueva_fecha) //cada 5 días limpia cache
+		if(now>nueva_fecha) //cada 2 días limpia cache
 		{
 			window.cache.clear(function(status) {}, function(status) {});
+			window.cache.cleartemp();
 			setLocalStorage("fecha", now);
 		}
 		getSessionStorage("start_session", "inicio");
@@ -114,6 +115,16 @@ function onDeviceReady()
 			return false;
 		}, false);	
 	}	
+	
+	var myIframe=document.getElementById('contenido');		
+	myIframe.addEventListener("load", function () {
+		if(((myIframe.contentWindow.document.location.href).indexOf("facebook")!=-1) || ((myIframe.contentWindow.document.location.href).indexOf("twitter")!=-1)  
+		{		
+			window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes');" 
+			myIframe.contentWindow.document.history.back();
+		}
+	}, false);	
+	
 }
 
 function register_notif()
