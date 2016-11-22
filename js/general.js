@@ -21,7 +21,7 @@ var pushNotification;
 var uuid;
 
 $(document).ready(function() {
-	$("#contenido").height(parseInt($(window).height())-4+"px");
+	$("#contenido").height(parseInt(viewport_height)-2+"px");
 });
 
 function onBodyLoad()
@@ -118,9 +118,17 @@ function onDeviceReady()
 	
 	var myIframe=document.getElementById('contenido');		
 	myIframe.addEventListener("load", function () {
+		alert(myIframe.contentWindow.document.location.href);
 		if((myIframe.contentWindow.document.location.href).indexOf("facebook")!=-1 || (myIframe.contentWindow.document.location.href).indexOf("twitter")!=-1)  
 		{		
 			window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
+			/* 
+			if(device.platform === 'Android') {
+				navigator.app.loadUrl(myIframe.contentWindow.document.location.href, {openExternal:true});
+			} else {
+				window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
+			}
+			*/
 			myIframe.contentWindow.document.history.back();
 		}
 	}, false);	
