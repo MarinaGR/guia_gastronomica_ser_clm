@@ -122,12 +122,15 @@ function onDeviceReady()
 		var iframeDoc = myIframe.contentDocument || myIframe.contentWindow.document;
 
 		if (typeof iframeDoc.addEventListener != "undefined") {
+			
 			iframeDoc.addEventListener("click", function (event) { 
 			
+				alert("1");
 				alert(event.path[0].href);
-				alert(this.href);
-								
-				if((myIframe.contentWindow.document.location.href).indexOf("facebook")!=-1 || (myIframe.contentWindow.document.location.href).indexOf("twitter")!=-1)  
+				alert(this.href);				
+				alert(myIframe.contentWindow.document.location.href);
+				
+				if((event.path[0].href).indexOf("facebook")!=-1 || (event.path[0].href).indexOf("twitter")!=-1)  
 				{		
 					event.preventDefault();
 					
@@ -145,12 +148,15 @@ function onDeviceReady()
 			}, false);
 			
 		} else if (typeof iframeDoc.attachEvent != "undefined") {
+			
 			iframeDoc.attachEvent ("onclick", function (event) { 
 			
+				alert("2");
 				alert(event.path[0].href);
 				alert(this.href);
+				alert(myIframe.contentWindow.document.location.href);
 							
-				if((myIframe.contentWindow.document.location.href).indexOf("facebook")!=-1 || (myIframe.contentWindow.document.location.href).indexOf("twitter")!=-1)  
+				if((event.path[0].href).indexOf("facebook")!=-1 || (event.path[0].href).indexOf("twitter")!=-1)  
 				{	
 					event.preventDefault();			
 					
@@ -164,7 +170,7 @@ function onDeviceReady()
 					*/
 					myIframe.contentWindow.document.history.back();
 				}
-			});
+			}, false);
 		}
 
 
