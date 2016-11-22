@@ -131,6 +131,16 @@ function onDeviceReady()
 			*/
 			myIframe.contentWindow.document.history.back();
 		}
+		
+		var iframeDoc = myIframe.contentDocument || myIframe.contentWindow.document;
+
+		if (typeof iframeDoc.addEventListener != "undefined") {
+			iframeDoc.addEventListener("click", function () { alert("Iframe clicked1"); }, false);
+		} else if (typeof iframeDoc.attachEvent != "undefined") {
+			iframeDoc.attachEvent ("onclick", function () { alert("Iframe clicked2"); });
+		}
+
+
 	}, false);	
 	
 }
