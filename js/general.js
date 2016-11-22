@@ -118,26 +118,53 @@ function onDeviceReady()
 	
 	var myIframe=document.getElementById('contenido');		
 	myIframe.addEventListener("load", function () {
-		alert(myIframe.contentWindow.document.location.href);
-		if((myIframe.contentWindow.document.location.href).indexOf("facebook")!=-1 || (myIframe.contentWindow.document.location.href).indexOf("twitter")!=-1)  
-		{		
-			window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
-			/* 
-			if(device.platform === 'Android') {
-				navigator.app.loadUrl(myIframe.contentWindow.document.location.href, {openExternal:true});
-			} else {
-				window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
-			}
-			*/
-			myIframe.contentWindow.document.history.back();
-		}
 		
 		var iframeDoc = myIframe.contentDocument || myIframe.contentWindow.document;
 
 		if (typeof iframeDoc.addEventListener != "undefined") {
-			iframeDoc.addEventListener("click", function () { alert("Iframe clicked1"); }, false);
+			iframeDoc.addEventListener("click", function (event) { 
+			
+				alert(event.path[0].href);
+				alert(this.href);
+				
+				event.preventDefault();
+				
+				if((myIframe.contentWindow.document.location.href).indexOf("facebook")!=-1 || (myIframe.contentWindow.document.location.href).indexOf("twitter")!=-1)  
+				{		
+					window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
+					/* 
+					if(device.platform === 'Android') {
+						navigator.app.loadUrl(myIframe.contentWindow.document.location.href, {openExternal:true});
+					} else {
+						window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
+					}
+					*/
+					myIframe.contentWindow.document.history.back();
+				}
+		
+			}, false);
+			
 		} else if (typeof iframeDoc.attachEvent != "undefined") {
-			iframeDoc.attachEvent ("onclick", function () { alert("Iframe clicked2"); });
+			iframeDoc.attachEvent ("onclick", function (event) { 
+			
+				alert(event.path[0].href);
+				alert(this.href);
+				
+				event.preventDefault();
+			
+				if((myIframe.contentWindow.document.location.href).indexOf("facebook")!=-1 || (myIframe.contentWindow.document.location.href).indexOf("twitter")!=-1)  
+				{		
+					window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
+					/* 
+					if(device.platform === 'Android') {
+						navigator.app.loadUrl(myIframe.contentWindow.document.location.href, {openExternal:true});
+					} else {
+						window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
+					}
+					*/
+					myIframe.contentWindow.document.history.back();
+				}
+			});
 		}
 
 
