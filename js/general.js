@@ -126,11 +126,11 @@ function onDeviceReady()
 			
 				alert(event.path[0].href);
 				alert(this.href);
-				
-				event.preventDefault();
-				
+								
 				if((myIframe.contentWindow.document.location.href).indexOf("facebook")!=-1 || (myIframe.contentWindow.document.location.href).indexOf("twitter")!=-1)  
 				{		
+					event.preventDefault();
+					
 					window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
 					/* 
 					if(device.platform === 'Android') {
@@ -149,11 +149,11 @@ function onDeviceReady()
 			
 				alert(event.path[0].href);
 				alert(this.href);
-				
-				event.preventDefault();
-			
+							
 				if((myIframe.contentWindow.document.location.href).indexOf("facebook")!=-1 || (myIframe.contentWindow.document.location.href).indexOf("twitter")!=-1)  
-				{		
+				{	
+					event.preventDefault();			
+					
 					window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
 					/* 
 					if(device.platform === 'Android') {
