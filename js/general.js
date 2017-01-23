@@ -37,7 +37,7 @@ function onBodyLoad()
 	setTimeout(function(){
 		$("#contenido").attr("src",extern_siteurl+"&devid="+getLocalStorage("uuid"));
 	},250);
-	
+		
 }
 				
 
@@ -130,17 +130,12 @@ function onDeviceReady()
 		if (typeof iframeDoc.addEventListener != "undefined") {
 			
 			iframeDoc.addEventListener("click", function (event) { 
-			
-				alert(event.path[1].href);			
-				//alert(document.head.querySelector("[property='og:title']").content);
-				
-				console.log(event);
-								
+											
 				if(typeof event.path[1].href=="string" && (event.path[1].href).indexOf("facebook")!=-1 || (event.path[1].href).indexOf("twitter")!=-1)  
 				{		
 					event.preventDefault();
 					
-					window.open(event.path[1].href, '_system', 'location=yes'); 
+					//window.open(event.path[1].href, '_system', 'location=yes'); 
 					/* 
 					if(device.platform === 'Android') {
 						navigator.app.loadUrl(myIframe.contentWindow.document.location.href, {openExternal:true});
@@ -151,25 +146,34 @@ function onDeviceReady()
 					
 					//myIframe.contentWindow.history.back();
 					
+					var titulo_compartir=(myIframe.contentWindow.document.head.querySelector("[property=title]").content).replace(/["']/g, "");
+					var texto_compartir=titulo_compartir+" en la ·Guía Gastronómica SER Castilla La Mancha·, descárgala desde Google Play o App Store para Iphone y disfruta de ofertas, eventos gastronómicos, recetas, restaurantes destacados de nuestra comunidad... "+encodeURIComponent('http://ovnyline.es/SER_CLM_GASTRONOMIA/qr/');
 					
-					/*
-					var titulo_compartir=(document.head.querySelector("[property='og:title']").content).replace(/["']/g, "");
-					var texto_compartir=titulo_compartir+" en la ·Guía Gastronómica SER Castilla La Mancha·, descárgala desde Google Play o App Store para Iphone y disfruta de ofertas, eventos gastronómicos, recetas, restaurantes destacados de nuestra comunidad... "+encodeURIComponent('http://ovnyline.es/SER_CLM_GASTRONOMIA/qr/;
 					
-					//var descripcion_compartir=(document.head.querySelector("[property='og:description']").content).replace(/["']/g, "·");
-					//texto_compartir=texto_compartir+"<br><br>"+descripcion_compartir;
-							
-					if(document.head.querySelector("[property='og:image']").content!="")
+					if(myIframe.contentWindow.document.head.querySelector("[property=image]").content!="")
 					{
-						cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\''+texto_compartir+'\', \''+titulo_compartir+'\', \''+document.head.querySelector("[property='og:image']").content+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> COMPARTIR ESTE EVENTO</div>';
+						window.plugins.socialsharing.share(texto_compartir, titulo_compartir, myIframe.contentWindow.document.head.querySelector("[property=image]").content, null);
+					}
+					else
+					{
+						window.plugins.socialsharing.share(texto_compartir, titulo_compartir, null, null);
+
+					}	
+					
+					//var descripcion_compartir=(myIframe.contentWindow.document.head.querySelector("[property='og:description']").content).replace(/["']/g, "·");
+					//texto_compartir=texto_compartir+"<br><br>"+descripcion_compartir;
+						
+					/*
+					if(myIframe.contentWindow.document.head.querySelector("[property=image]").content!="")
+					{
+						cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\''+texto_compartir+'\', \''+titulo_compartir+'\', \''+myIframe.contentWindow.document.head.querySelector("[property=image]").content+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> COMPARTIR ESTE EVENTO</div>';
 					}
 					else
 					{
 						cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\''+texto_compartir+'\', \''+titulo_compartir+'\', null, null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> COMPARTIR ESTE EVENTO</div>';
 
 					}	
-					*/
-					
+					*/					
 					
 				}
 		
@@ -183,7 +187,7 @@ function onDeviceReady()
 				{	
 					event.preventDefault();			
 					
-					window.open(event.path[1].href, '_system', 'location=yes'); 
+					//window.open(event.path[1].href, '_system', 'location=yes'); 
 					/* 
 					if(device.platform === 'Android') {
 						navigator.app.loadUrl(myIframe.contentWindow.document.location.href, {openExternal:true});
@@ -194,16 +198,26 @@ function onDeviceReady()
 					
 					//myIframe.contentWindow.history.back();
 					
-					/*
-					var titulo_compartir=(document.head.querySelector("[property='og:title']").content).replace(/["']/g, "");
-					var texto_compartir=titulo_compartir+" en la ·Guía Gastronómica SER Castilla La Mancha·, descárgala desde Google Play o App Store para Iphone y disfruta de ofertas, eventos gastronómicos, recetas, restaurantes destacados de nuestra comunidad... "+encodeURIComponent('http://ovnyline.es/SER_CLM_GASTRONOMIA/qr/;
+					if(myIframe.contentWindow.document.head.querySelector("[property=image]").content!="")
+					{
+						window.plugins.socialsharing.share(texto_compartir, titulo_compartir, myIframe.contentWindow.document.head.querySelector("[property=image]").content, null);
+					}
+					else
+					{
+						window.plugins.socialsharing.share(texto_compartir, titulo_compartir, null, null);
+
+					}	
 					
-					//var descripcion_compartir=(document.head.querySelector("[property='og:description']").content).replace(/["']/g, "·");
+					/*
+					var titulo_compartir=(myIframe.contentWindow.document.head.querySelector("[property='og:title']").content).replace(/["']/g, "");
+					var texto_compartir=titulo_compartir+" en la ·Guía Gastronómica SER Castilla La Mancha·, descárgala desde Google Play o App Store para Iphone y disfruta de ofertas, eventos gastronómicos, recetas, restaurantes destacados de nuestra comunidad... "+encodeURIComponent('http://ovnyline.es/SER_CLM_GASTRONOMIA/qr/');
+					
+					//var descripcion_compartir=(myIframe.contentWindow.document.head.querySelector("[property='og:description']").content).replace(/["']/g, "·");
 					//texto_compartir=texto_compartir+"<br><br>"+descripcion_compartir;
 							
-					if(document.head.querySelector("[property='og:image']").content!="")
+					if(myIframe.contentWindow.document.head.querySelector("[property='og:image']").content!="")
 					{
-						cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\''+texto_compartir+'\', \''+titulo_compartir+'\', \''+document.head.querySelector("[property='og:image']").content+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> COMPARTIR ESTE EVENTO</div>';
+						cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\''+texto_compartir+'\', \''+titulo_compartir+'\', \''+myIframe.contentWindow.document.head.querySelector("[property='og:image']").content+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> COMPARTIR ESTE EVENTO</div>';
 					}
 					else
 					{
