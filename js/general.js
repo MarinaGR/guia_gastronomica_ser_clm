@@ -3,7 +3,7 @@
 var now = new Date().getTime();
 
 //OJO CAMBIAR ESTO Y CONFIG
-var extern_siteurl_notif="http://ovnyline.es/SER_CLM_GASTRONOMIA_PRUEBAS/"; 
+var extern_siteurl_notif="http://ovnyline.es/SER_CLM_GASTRONOMIA/"; 
 var extern_siteurl=extern_siteurl_notif+"index.html?app=mobile&app_ios=mobile&flag="+now; 
 var extern_siteurl_op=extern_siteurl_notif+"server/functions/api.php";
 
@@ -21,7 +21,8 @@ var pushNotification;
 var uuid;
 
 $(document).ready(function() {
-	$("#contenido").height(parseInt(viewport_height)-2+"px");
+	//$("#contenido").height(parseInt(viewport_height)-2+"px");
+	$("#contenido").height(parseInt($(window).height())-4+"px");
 });
 
 function onBodyLoad()
@@ -38,8 +39,7 @@ function onBodyLoad()
 		$("#contenido").attr("src",extern_siteurl+"&devid="+getLocalStorage("uuid"));
 	},250);
 		
-}
-				
+}				
 
 function onDeviceReady()
 {
@@ -130,38 +130,16 @@ function onDeviceReady()
 		if (typeof iframeDoc.addEventListener != "undefined") {
 				
 			iframeDoc.addEventListener("click", function (event) { 
-			
-				console.log(event);
-											
-				//if(typeof event.path[0].href=="string" && (event.path[0].href).indexOf("facebook")!=-1 || (event.path[1].href).indexOf("twitter")!=-1)  
-					
+						
 				if(typeof event.srcElement.id=="string" && (event.srcElement.id).indexOf("run_share_app")!=-1)  
 				{		
 					event.preventDefault();
-					
-					console.log(event.srcElement.id);
-					
-					//window.open(event.path[1].href, '_system', 'location=yes'); 
-					/* 
-					if(device.platform === 'Android') {
-						navigator.app.loadUrl(myIframe.contentWindow.document.location.href, {openExternal:true});
-					} else {
-						window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
-					}
-					*/
-					
-					//myIframe.contentWindow.history.back();
 					
 					var titulo_compartir=myIframe.contentWindow.document.head.querySelector("[property=title]").content;
 					titulo_compartir=titulo_compartir.replace(/["']/g, "");
 					var texto_compartir=titulo_compartir+" en la ·Guía Gastronómica SER Castilla La Mancha·, descárgala desde Google Play o App Store para Iphone y disfruta de ofertas, eventos gastronómicos, recetas, restaurantes destacados de nuestra comunidad... http://ovnyline.es/SER_CLM_GASTRONOMIA/qr/";
 					texto_compartir=texto_compartir.replace(/["']/g, "");
 					var imagen_compartir=myIframe.contentWindow.document.head.querySelector("[property=image]").content;
-					
-					alert(texto_compartir);
-					alert(titulo_compartir);
-					alert(imagen_compartir);
-					
 					
 					if(imagen_compartir!="")
 					{
@@ -172,23 +150,7 @@ function onDeviceReady()
 					{
 						window.plugins.socialsharing.share(texto_compartir, titulo_compartir, null, null);
 
-					}
-					
-					
-					//var descripcion_compartir=(myIframe.contentWindow.document.head.querySelector("[property='og:description']").content).replace(/["']/g, "·");
-					//texto_compartir=texto_compartir+"<br><br>"+descripcion_compartir;
-						
-					/*
-					if(myIframe.contentWindow.document.head.querySelector("[property=image]").content!="")
-					{
-						cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\''+texto_compartir+'\', \''+titulo_compartir+'\', \''+myIframe.contentWindow.document.head.querySelector("[property=image]").content+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> COMPARTIR ESTE EVENTO</div>';
-					}
-					else
-					{
-						cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\''+texto_compartir+'\', \''+titulo_compartir+'\', null, null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> COMPARTIR ESTE EVENTO</div>';
-
 					}	
-					*/					
 					
 				}
 		
@@ -198,51 +160,34 @@ function onDeviceReady()
 			
 			iframeDoc.attachEvent ("onclick", function (event) { 
 							
-				//if(typeof event.path[0].href=="string" && (event.path[1].href).indexOf("facebook")!=-1 || (event.path[1].href).indexOf("twitter")!=-1)  
-					
 				if(typeof event.srcElement.id=="string" && (event.srcElement.id).indexOf("run_share_app")!=-1)  
-				{	
-					event.preventDefault();			
+				{		
+					event.preventDefault();
 					
-					console.log(event.srcElement.id);
+					var titulo_compartir=myIframe.contentWindow.document.head.querySelector("[property=title]").content;
+					titulo_compartir=titulo_compartir.replace(/["']/g, "");
 					
-					//window.open(event.path[1].href, '_system', 'location=yes'); 
-					/* 
-					if(device.platform === 'Android') {
-						navigator.app.loadUrl(myIframe.contentWindow.document.location.href, {openExternal:true});
-					} else {
-						window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
-					}
-					*/
-					
-					//myIframe.contentWindow.history.back();
-					
-					/*if(myIframe.contentWindow.document.head.querySelector("[property=image]").content!="")
+					var oferta_compartir="";
+					oferta_compartir=myIframe.contentWindow.document.head.querySelector("[property=offer]").content
+					if(oferta_compartir!="")
 					{
-						window.plugins.socialsharing.share(texto_compartir, titulo_compartir, myIframe.contentWindow.document.head.querySelector("[property=image]").content, null);
+						var oferta_compartir='OFERTA '+oferta_compartir+' en ';
+					} 
+					var texto_compartir=oferta_compartir+titulo_compartir+" en la ·Guía Gastronómica SER Castilla La Mancha·, descárgala desde Google Play o App Store para Iphone y disfruta de ofertas, eventos gastronómicos, recetas, restaurantes destacados de nuestra comunidad... http://ovnyline.es/SER_CLM_GASTRONOMIA/qr/";
+					texto_compartir=texto_compartir.replace(/["']/g, "");
+					var imagen_compartir=myIframe.contentWindow.document.head.querySelector("[property=image]").content;
+					
+					if(imagen_compartir!="")
+					{
+						
+						window.plugins.socialsharing.share(texto_compartir, titulo_compartir, imagen_compartir, null);
 					}
 					else
 					{
 						window.plugins.socialsharing.share(texto_compartir, titulo_compartir, null, null);
-					}*/	
-					
-					/*
-					var titulo_compartir=(myIframe.contentWindow.document.head.querySelector("[property='og:title']").content).replace(/["']/g, "");
-					var texto_compartir=titulo_compartir+" en la ·Guía Gastronómica SER Castilla La Mancha·, descárgala desde Google Play o App Store para Iphone y disfruta de ofertas, eventos gastronómicos, recetas, restaurantes destacados de nuestra comunidad... "+encodeURIComponent('http://ovnyline.es/SER_CLM_GASTRONOMIA/qr/');
-					
-					//var descripcion_compartir=(myIframe.contentWindow.document.head.querySelector("[property='og:description']").content).replace(/["']/g, "·");
-					//texto_compartir=texto_compartir+"<br><br>"+descripcion_compartir;
-							
-					if(myIframe.contentWindow.document.head.querySelector("[property='og:image']").content!="")
-					{
-						cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\''+texto_compartir+'\', \''+titulo_compartir+'\', \''+myIframe.contentWindow.document.head.querySelector("[property='og:image']").content+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> COMPARTIR ESTE EVENTO</div>';
-					}
-					else
-					{
-						cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\''+texto_compartir+'\', \''+titulo_compartir+'\', null, null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> COMPARTIR ESTE EVENTO</div>';
 
 					}	
-					*/
+					
 				}
 			}, false);
 		}
