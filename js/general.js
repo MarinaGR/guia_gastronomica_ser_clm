@@ -37,8 +37,9 @@ function onBodyLoad()
 	setTimeout(function(){
 		$("#contenido").attr("src",extern_siteurl+"&devid="+getLocalStorage("uuid"));
 	},250);
-			
+	
 }
+				
 
 function onDeviceReady()
 {
@@ -130,18 +131,16 @@ function onDeviceReady()
 			
 			iframeDoc.addEventListener("click", function (event) { 
 			
-				alert(event.path[0].href);			
-				alert(myIframe.contentWindow.document.location.href);
-				alert(document.head.querySelector("[property='og:title']").content);
+				alert(event.path[1].href);			
+				//alert(document.head.querySelector("[property='og:title']").content);
 				
-				$("body").append(event);
-				$("body").append(this);
-				
-				if((event.path[0].href).indexOf("facebook")!=-1 || (event.path[0].href).indexOf("twitter")!=-1)  
+				console.log(event);
+								
+				if(typeof event.path[1].href=="string" && (event.path[1].href).indexOf("facebook")!=-1 || (event.path[1].href).indexOf("twitter")!=-1)  
 				{		
 					event.preventDefault();
 					
-					window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
+					window.open(event.path[1].href, '_system', 'location=yes'); 
 					/* 
 					if(device.platform === 'Android') {
 						navigator.app.loadUrl(myIframe.contentWindow.document.location.href, {openExternal:true});
@@ -149,7 +148,8 @@ function onDeviceReady()
 						window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
 					}
 					*/
-					myIframe.contentWindow.document.history.back();
+					
+					//myIframe.contentWindow.history.back();
 					
 					
 					/*
@@ -178,17 +178,12 @@ function onDeviceReady()
 		} else if (typeof iframeDoc.attachEvent != "undefined") {
 			
 			iframeDoc.attachEvent ("onclick", function (event) { 
-			
-				alert("2");
-				alert(event.path[0].href);
-				alert(this.href);
-				alert(myIframe.contentWindow.document.location.href);
 							
-				if((event.path[0].href).indexOf("facebook")!=-1 || (event.path[0].href).indexOf("twitter")!=-1)  
+				if(typeof event.path[1].href=="string" && (event.path[1].href).indexOf("facebook")!=-1 || (event.path[1].href).indexOf("twitter")!=-1)  
 				{	
 					event.preventDefault();			
 					
-					window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
+					window.open(event.path[1].href, '_system', 'location=yes'); 
 					/* 
 					if(device.platform === 'Android') {
 						navigator.app.loadUrl(myIframe.contentWindow.document.location.href, {openExternal:true});
@@ -196,7 +191,26 @@ function onDeviceReady()
 						window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
 					}
 					*/
-					myIframe.contentWindow.document.history.back();
+					
+					//myIframe.contentWindow.history.back();
+					
+					/*
+					var titulo_compartir=(document.head.querySelector("[property='og:title']").content).replace(/["']/g, "");
+					var texto_compartir=titulo_compartir+" en la ·Guía Gastronómica SER Castilla La Mancha·, descárgala desde Google Play o App Store para Iphone y disfruta de ofertas, eventos gastronómicos, recetas, restaurantes destacados de nuestra comunidad... "+encodeURIComponent('http://ovnyline.es/SER_CLM_GASTRONOMIA/qr/;
+					
+					//var descripcion_compartir=(document.head.querySelector("[property='og:description']").content).replace(/["']/g, "·");
+					//texto_compartir=texto_compartir+"<br><br>"+descripcion_compartir;
+							
+					if(document.head.querySelector("[property='og:image']").content!="")
+					{
+						cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\''+texto_compartir+'\', \''+titulo_compartir+'\', \''+document.head.querySelector("[property='og:image']").content+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> COMPARTIR ESTE EVENTO</div>';
+					}
+					else
+					{
+						cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\''+texto_compartir+'\', \''+titulo_compartir+'\', null, null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> COMPARTIR ESTE EVENTO</div>';
+
+					}	
+					*/
 				}
 			}, false);
 		}
