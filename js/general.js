@@ -146,11 +146,14 @@ function onDeviceReady()
 					
 					//myIframe.contentWindow.history.back();
 					
-					var titulo_compartir=(myIframe.contentWindow.document.head.querySelector("[property=title]").content).replace(/["']/g, "");
-					var texto_compartir=titulo_compartir+" en la ·Guía Gastronómica SER Castilla La Mancha·, descárgala desde Google Play o App Store para Iphone y disfruta de ofertas, eventos gastronómicos, recetas, restaurantes destacados de nuestra comunidad... "+encodeURIComponent('http://ovnyline.es/SER_CLM_GASTRONOMIA/qr/');
+					/*var titulo_compartir=(myIframe.contentWindow.document.head.querySelector("[property=title]").content).replace(/["']/g, "");
+					var texto_compartir=titulo_compartir+" en la ·Guía Gastronómica SER Castilla La Mancha·, descárgala desde Google Play o App Store para Iphone y disfruta de ofertas, eventos gastronómicos, recetas, restaurantes destacados de nuestra comunidad... "+encodeURIComponent('http://ovnyline.es/SER_CLM_GASTRONOMIA/qr/');*/
 					
 					
-					if(myIframe.contentWindow.document.head.querySelector("[property=image]").content!="")
+					window.plugins.socialsharing.share("texto a compartir", "el titulo", null, null);
+					
+					
+					/*if(myIframe.contentWindow.document.head.querySelector("[property=image]").content!="")
 					{
 						window.plugins.socialsharing.share(texto_compartir, titulo_compartir, myIframe.contentWindow.document.head.querySelector("[property=image]").content, null);
 					}
@@ -158,7 +161,7 @@ function onDeviceReady()
 					{
 						window.plugins.socialsharing.share(texto_compartir, titulo_compartir, null, null);
 
-					}	
+					}*/	
 					
 					//var descripcion_compartir=(myIframe.contentWindow.document.head.querySelector("[property='og:description']").content).replace(/["']/g, "·");
 					//texto_compartir=texto_compartir+"<br><br>"+descripcion_compartir;
@@ -198,15 +201,14 @@ function onDeviceReady()
 					
 					//myIframe.contentWindow.history.back();
 					
-					if(myIframe.contentWindow.document.head.querySelector("[property=image]").content!="")
+					/*if(myIframe.contentWindow.document.head.querySelector("[property=image]").content!="")
 					{
 						window.plugins.socialsharing.share(texto_compartir, titulo_compartir, myIframe.contentWindow.document.head.querySelector("[property=image]").content, null);
 					}
 					else
 					{
 						window.plugins.socialsharing.share(texto_compartir, titulo_compartir, null, null);
-
-					}	
+					}*/	
 					
 					/*
 					var titulo_compartir=(myIframe.contentWindow.document.head.querySelector("[property='og:title']").content).replace(/["']/g, "");
