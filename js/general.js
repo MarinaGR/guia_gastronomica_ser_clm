@@ -121,19 +121,25 @@ function onDeviceReady()
 			return false;
 		}, false);	
 	}	
-	
+		
 	var myIframe=document.getElementById('contenido');		
 	myIframe.addEventListener("load", function () {
 		
 		var iframeDoc = myIframe.contentDocument || myIframe.contentWindow.document;
 
 		if (typeof iframeDoc.addEventListener != "undefined") {
-			
+				
 			iframeDoc.addEventListener("click", function (event) { 
+			
+				console.log(event);
 											
-				if(typeof event.path[1].href=="string" && (event.path[1].href).indexOf("facebook")!=-1 || (event.path[1].href).indexOf("twitter")!=-1)  
+				//if(typeof event.path[0].href=="string" && (event.path[0].href).indexOf("facebook")!=-1 || (event.path[1].href).indexOf("twitter")!=-1)  
+					
+				if(typeof event.srcElement.id=="string" && (event.srcElement.id).indexOf("run_share_app")!=-1)  
 				{		
 					event.preventDefault();
+					
+					console.log(event.srcElement.id);
 					
 					//window.open(event.path[1].href, '_system', 'location=yes'); 
 					/* 
@@ -186,9 +192,13 @@ function onDeviceReady()
 			
 			iframeDoc.attachEvent ("onclick", function (event) { 
 							
-				if(typeof event.path[1].href=="string" && (event.path[1].href).indexOf("facebook")!=-1 || (event.path[1].href).indexOf("twitter")!=-1)  
+				//if(typeof event.path[0].href=="string" && (event.path[1].href).indexOf("facebook")!=-1 || (event.path[1].href).indexOf("twitter")!=-1)  
+					
+				if(typeof event.srcElement.id=="string" && (event.srcElement.id).indexOf("run_share_app")!=-1)  
 				{	
 					event.preventDefault();			
+					
+					console.log(event.srcElement.id);
 					
 					//window.open(event.path[1].href, '_system', 'location=yes'); 
 					/* 
