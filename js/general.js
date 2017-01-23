@@ -152,22 +152,28 @@ function onDeviceReady()
 					
 					//myIframe.contentWindow.history.back();
 					
-					/*var titulo_compartir=(myIframe.contentWindow.document.head.querySelector("[property=title]").content).replace(/["']/g, "");
-					var texto_compartir=titulo_compartir+" en la ·Guía Gastronómica SER Castilla La Mancha·, descárgala desde Google Play o App Store para Iphone y disfruta de ofertas, eventos gastronómicos, recetas, restaurantes destacados de nuestra comunidad... "+encodeURIComponent('http://ovnyline.es/SER_CLM_GASTRONOMIA/qr/');*/
+					var titulo_compartir=myIframe.contentWindow.document.head.querySelector("[property=title]").content;
+					titulo_compartir=titulo_compartir.replace(/["']/g, "");
+					var texto_compartir=titulo_compartir+" en la ·Guía Gastronómica SER Castilla La Mancha·, descárgala desde Google Play o App Store para Iphone y disfruta de ofertas, eventos gastronómicos, recetas, restaurantes destacados de nuestra comunidad... http://ovnyline.es/SER_CLM_GASTRONOMIA/qr/";
+					texto_compartir=texto_compartir.replace(/["']/g, "");
+					var imagen_compartir=myIframe.contentWindow.document.head.querySelector("[property=image]").content;
+					
+					alert(texto_compartir);
+					alert(titulo_compartir);
+					alert(imagen_compartir);
 					
 					
-					window.plugins.socialsharing.share("texto a compartir", "el titulo", null, null);
-					
-					
-					/*if(myIframe.contentWindow.document.head.querySelector("[property=image]").content!="")
+					if(imagen_compartir!="")
 					{
-						window.plugins.socialsharing.share(texto_compartir, titulo_compartir, myIframe.contentWindow.document.head.querySelector("[property=image]").content, null);
+						
+						window.plugins.socialsharing.share(texto_compartir, titulo_compartir, imagen_compartir, null);
 					}
 					else
 					{
 						window.plugins.socialsharing.share(texto_compartir, titulo_compartir, null, null);
 
-					}*/	
+					}
+					
 					
 					//var descripcion_compartir=(myIframe.contentWindow.document.head.querySelector("[property='og:description']").content).replace(/["']/g, "·");
 					//texto_compartir=texto_compartir+"<br><br>"+descripcion_compartir;
