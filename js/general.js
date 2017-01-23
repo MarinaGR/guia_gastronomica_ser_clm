@@ -132,7 +132,7 @@ function onDeviceReady()
 			
 				alert(event.path[0].href);			
 				alert(myIframe.contentWindow.document.location.href);
-				alert(document.head.querySelector("[property=og:title]").content);
+				alert(document.head.querySelector("[property='og:title']").content);
 				
 				$("body").append(event);
 				$("body").append(this);
@@ -153,15 +153,15 @@ function onDeviceReady()
 					
 					
 					/*
-					var titulo_compartir=(document.head.querySelector("[property=og:title]").content).replace(/["']/g, "");
+					var titulo_compartir=(document.head.querySelector("[property='og:title']").content).replace(/["']/g, "");
 					var texto_compartir=titulo_compartir+" en la ·Guía Gastronómica SER Castilla La Mancha·, descárgala desde Google Play o App Store para Iphone y disfruta de ofertas, eventos gastronómicos, recetas, restaurantes destacados de nuestra comunidad... "+encodeURIComponent('http://ovnyline.es/SER_CLM_GASTRONOMIA/qr/;
 					
-					//var descripcion_compartir=(document.head.querySelector("[property=og:description]").content).replace(/["']/g, "·");
+					//var descripcion_compartir=(document.head.querySelector("[property='og:description']").content).replace(/["']/g, "·");
 					//texto_compartir=texto_compartir+"<br><br>"+descripcion_compartir;
 							
-					if(document.head.querySelector("[property=og:image]").content!="")
+					if(document.head.querySelector("[property='og:image']").content!="")
 					{
-						cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\''+texto_compartir+'\', \''+titulo_compartir+'\', \''+document.head.querySelector("[property=og:image]").content+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> COMPARTIR ESTE EVENTO</div>';
+						cadena+='<div class="boton_01" id="compartir" onclick="window.plugins.socialsharing.share(\''+texto_compartir+'\', \''+titulo_compartir+'\', \''+document.head.querySelector("[property='og:image']").content+'\', null)" ><i class="fa fa-share-alt fa-fw fa-lg"> </i> COMPARTIR ESTE EVENTO</div>';
 					}
 					else
 					{
