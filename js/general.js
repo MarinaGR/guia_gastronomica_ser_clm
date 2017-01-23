@@ -38,68 +38,6 @@ function onBodyLoad()
 		$("#contenido").attr("src",extern_siteurl+"&devid="+getLocalStorage("uuid"));
 	},250);
 			
-	var myIframe=document.getElementById('contenido');		
-	myIframe.addEventListener("load", function () {
-		
-		var iframeDoc = myIframe.contentDocument || myIframe.contentWindow.document;
-
-		if (typeof iframeDoc.addEventListener != "undefined") {
-			
-			iframeDoc.addEventListener("click", function (event) { 
-			
-				alert("1");
-				alert(event.path[0].href);
-				alert(this.href);				
-				alert(myIframe.contentWindow.document.location.href);
-				
-				$("#contenido").append(event);
-				$("#contenido").append(this);
-				
-				if((event.path[0].href).indexOf("facebook")!=-1 || (event.path[0].href).indexOf("twitter")!=-1)  
-				{		
-					event.preventDefault();
-					
-					window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
-					/* 
-					if(device.platform === 'Android') {
-						navigator.app.loadUrl(myIframe.contentWindow.document.location.href, {openExternal:true});
-					} else {
-						window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
-					}
-					*/
-					myIframe.contentWindow.document.history.back();
-				}
-		
-			}, false);
-			
-		} else if (typeof iframeDoc.attachEvent != "undefined") {
-			
-			iframeDoc.attachEvent ("onclick", function (event) { 
-			
-				alert("2");
-				alert(event.path[0].href);
-				alert(this.href);
-				alert(myIframe.contentWindow.document.location.href);
-							
-				if((event.path[0].href).indexOf("facebook")!=-1 || (event.path[0].href).indexOf("twitter")!=-1)  
-				{	
-					event.preventDefault();			
-					
-					window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
-					/* 
-					if(device.platform === 'Android') {
-						navigator.app.loadUrl(myIframe.contentWindow.document.location.href, {openExternal:true});
-					} else {
-						window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
-					}
-					*/
-					myIframe.contentWindow.document.history.back();
-				}
-			}, false);
-		}
-
-
-	}, false);	
 }
 
 function onDeviceReady()
