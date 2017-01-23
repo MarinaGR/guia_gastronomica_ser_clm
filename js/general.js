@@ -3,7 +3,7 @@
 var now = new Date().getTime();
 
 //OJO CAMBIAR ESTO Y CONFIG
-var extern_siteurl_notif="http://ovnyline.es/SER_CLM_GASTRONOMIA/"; 
+var extern_siteurl_notif="http://ovnyline.es/SER_CLM_GASTRONOMIA_PRUEBAS/"; 
 var extern_siteurl=extern_siteurl_notif+"index.html?app=mobile&app_ios=mobile&flag="+now; 
 var extern_siteurl_op=extern_siteurl_notif+"server/functions/api.php";
 
@@ -33,6 +33,73 @@ function onBodyLoad()
 	{	
 		setLocalStorage("fecha", now); 
 	}
+	
+	setTimeout(function(){
+		$("#contenido").attr("src",extern_siteurl+"&devid="+getLocalStorage("uuid"));
+	},250);
+			
+	var myIframe=document.getElementById('contenido');		
+	myIframe.addEventListener("load", function () {
+		
+		var iframeDoc = myIframe.contentDocument || myIframe.contentWindow.document;
+
+		if (typeof iframeDoc.addEventListener != "undefined") {
+			
+			iframeDoc.addEventListener("click", function (event) { 
+			
+				alert("1");
+				alert(event.path[0].href);
+				alert(this.href);				
+				alert(myIframe.contentWindow.document.location.href);
+				
+				$("#contenido").append(event);
+				$("#contenido").append(this);
+				
+				if((event.path[0].href).indexOf("facebook")!=-1 || (event.path[0].href).indexOf("twitter")!=-1)  
+				{		
+					event.preventDefault();
+					
+					window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
+					/* 
+					if(device.platform === 'Android') {
+						navigator.app.loadUrl(myIframe.contentWindow.document.location.href, {openExternal:true});
+					} else {
+						window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
+					}
+					*/
+					myIframe.contentWindow.document.history.back();
+				}
+		
+			}, false);
+			
+		} else if (typeof iframeDoc.attachEvent != "undefined") {
+			
+			iframeDoc.attachEvent ("onclick", function (event) { 
+			
+				alert("2");
+				alert(event.path[0].href);
+				alert(this.href);
+				alert(myIframe.contentWindow.document.location.href);
+							
+				if((event.path[0].href).indexOf("facebook")!=-1 || (event.path[0].href).indexOf("twitter")!=-1)  
+				{	
+					event.preventDefault();			
+					
+					window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
+					/* 
+					if(device.platform === 'Android') {
+						navigator.app.loadUrl(myIframe.contentWindow.document.location.href, {openExternal:true});
+					} else {
+						window.open(myIframe.contentWindow.document.location.href, '_system', 'location=yes'); 
+					}
+					*/
+					myIframe.contentWindow.document.history.back();
+				}
+			}, false);
+		}
+
+
+	}, false);	
 }
 
 function onDeviceReady()
@@ -50,7 +117,7 @@ function onDeviceReady()
 	var start_session=getSessionStorage("start_session"); 
 	if(typeof start_session == "undefined" || start_session==null)	
 	{	
-		var nueva_fecha=parseInt(getLocalStorage("fecha"))+1000*60*60*24*2  
+		var nueva_fecha=parseInt(getLocalStorage("fecha"))+1000*60*60*24*2;  
 				
 		if(now>nueva_fecha) //cada 2 días limpia cache
 		{
