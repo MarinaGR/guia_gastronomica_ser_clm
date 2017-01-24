@@ -65,7 +65,7 @@ function onDeviceReady()
 		if(now>nueva_fecha) //cada 2 días limpia cache
 		{
 			window.cache.clear(function(status) {}, function(status) {});
-			window.cache.cleartemp();
+			//window.cache.cleartemp();
 			setLocalStorage("fecha", now);
 		}
 		getSessionStorage("start_session", "inicio");
