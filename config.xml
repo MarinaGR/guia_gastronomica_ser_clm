@@ -9,7 +9,7 @@
 		
 	<!-- 1.0.1: IOS cambio icono y página sin conexión -->
 	<!-- 1.0.2: Boton cierre android??, borrado cache en cada inicio de app, notificaciones push, segmentacion y valoraciones restaurantes, buscador -->
-	<!-- 1.0.3: Actualiación cli6.4.0, config (plugins), detección url iframe para carga compartir nativo  -->
+	<!-- 1.0.3: Actualiación cli6.4.0 en android//5.4.0 en ios, config (plugins), detección url iframe para carga compartir nativo  -->
 	
     <name>Guía Gastronómica SER Castilla La Mancha</name>
 
@@ -31,7 +31,7 @@
     <feature name="http://api.phonegap.com/1.0/notification"/>
 
     <!-- Customize your app and platform with the preference element. -->
-    <preference name="phonegap-version"           value="cli-6.4.0" />          <!-- all: current version of PhoneGap -->
+    <preference name="phonegap-version"           value="cli-5.4.0" />          <!-- all: current version of PhoneGap -->
     <preference name="orientation"                value="portrait" />        <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
     <preference name="fullscreen"                 value="true" />           <!-- all: hides the status bar at the top of the screen -->
@@ -64,7 +64,7 @@
 	<gap:plugin name="cordova-plugin-whitelist" source="npm" spec="1.2.2" />
 	
 	<gap:plugin name="cordova-plugin-network-information" source="npm" version="1.2.1" />
-	<gap:plugin name="cordova-plugin-cache" source="npm" version="1.0.5" />
+	<gap:plugin name="cordova-plugin-cache-npm" source="npm" version="1.0.0" />
 	
 	<gap:plugin name="de.appplant.cordova.plugin.local-notification" source="npm" version="0.8.4" />	
 	<gap:plugin name="cordova-plugin-pushplugin" source="npm" version="2.6.1" /> 
