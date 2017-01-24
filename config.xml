@@ -9,7 +9,7 @@
 		
 	<!-- 1.0.1: IOS cambio icono y página sin conexión -->
 	<!-- 1.0.2: Boton cierre android??, borrado cache en cada inicio de app, notificaciones push, segmentacion y valoraciones restaurantes, buscador -->
-	<!-- 1.0.3: Actualiación cli6.4.0 en android//5.4.0 en ios, config (plugins), detección url iframe para carga compartir nativo  -->
+	<!-- 1.0.3: Actualiación cli6.4.0 en android//6.0.0 en ios, config (plugins), detección url iframe para carga compartir nativo  -->
 	
     <name>Guía Gastronómica SER Castilla La Mancha</name>
 
@@ -31,7 +31,7 @@
     <feature name="http://api.phonegap.com/1.0/notification"/>
 
     <!-- Customize your app and platform with the preference element. -->
-    <preference name="phonegap-version"           value="cli-5.4.0" />          <!-- all: current version of PhoneGap -->
+    <preference name="phonegap-version"           value="cli-6.0.0" />          <!-- all: current version of PhoneGap -->
     <preference name="orientation"                value="portrait" />        <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"              value="universal" />      <!-- all: possible values handset, tablet, or universal -->
     <preference name="fullscreen"                 value="true" />           <!-- all: hides the status bar at the top of the screen -->
