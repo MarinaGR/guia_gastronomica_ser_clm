@@ -22,8 +22,7 @@ var uuid;
 
 $(document).ready(function() {
 	//$("#contenido").height(parseInt(viewport_height)-2+"px");
-	$("#contenido").height(parseInt($(window).height())-3+"px");
-	
+	$("#contenido").height(parseInt($(window).height())-4+"px");
 });
 
 function onBodyLoad()
@@ -38,9 +37,6 @@ function onBodyLoad()
 	
 	setTimeout(function(){
 		$("#contenido").attr("src",extern_siteurl+"&devid="+getLocalStorage("uuid"));
-		
-		$("#contenido").height(parseInt($(window).height())-3+"px");
-		
 	},250);
 		
 }				
